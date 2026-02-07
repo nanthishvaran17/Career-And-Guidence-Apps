@@ -67,7 +67,7 @@
             "dev:client": "vite",
             "dev:server": "node server/index.js",
             "build": "vite build",
-            "predeploy": "npm run build",
+            "predeploy": "vite build --base=/Career-Advisor-App-For--Education/",
             "deploy": "gh-pages -d build",
             "start-server": "node server/index.js"
       }
