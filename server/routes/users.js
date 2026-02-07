@@ -4,11 +4,17 @@ const db = require('../database/db');
 
 // Register / Signup
 router.post('/signup', (req, res) => {
-    const { fullName, email, phone, password } = req.body;
+    const { fullName, phone, password } = req.body;
+    const email = req.body.email ? req.body.email.trim().toLowerCase() : '';
+
+    console.log(`[Signup] Checking email: '${email}'`);
 
     // Check if user exists
     db.get('SELECT id FROM users WHERE email = ?', [email], (err, row) => {
-        if (err) return res.status(500).json({ error: 'DB Error' });
+        if (err) {
+            console.error("DB Error in Signup Check:", err.message);
+            return res.status(500).json({ error: 'DB Error: ' + err.message });
+        }
         if (row) return res.status(400).json({ error: 'User already exists' });
 
         const sql = `INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)`;
@@ -18,6 +24,7 @@ router.post('/signup', (req, res) => {
         });
     });
 });
+
 
 // Update User Profile
 router.post('/profile', (req, res) => {

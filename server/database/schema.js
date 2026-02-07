@@ -2,13 +2,10 @@ const db = require('./db');
 
 const createTables = () => {
   db.serialize(() => {
-    // Drop tables to apply new schema (Development only - allows simple updates)
-    db.run("DROP TABLE IF EXISTS users");
-    db.run("DROP TABLE IF EXISTS careers");
-    db.run("DROP TABLE IF EXISTS govt_jobs");
-    db.run("DROP TABLE IF EXISTS scholarships");
-    db.run("DROP TABLE IF EXISTS internships");
-    db.run("DROP TABLE IF EXISTS colleges");
+    // Only drop tables in development if explicitly requested or needed manually.
+    // In production, we NEVER want to drop tables automatically.
+    // db.run("DROP TABLE IF EXISTS users"); 
+    // ... (commenting out all drops)
 
     // Users Table
     db.run(`CREATE TABLE IF NOT EXISTS users (
@@ -148,6 +145,6 @@ const createTables = () => {
   });
 };
 
-createTables();
+// createTables(); // Removed auto-execution. Called from db.js
 
 module.exports = createTables;
