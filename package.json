@@ -1,7 +1,7 @@
 {
       "name": "Career & Education Advisor App",
       "version": "0.1.0",
-      "homepage": "https://Nanthish.github.io/career-advisor-app",
+      "homepage": "https://nanthishsaravanan17-svg.github.io/career-advisor-app",
       "private": true,
       "dependencies": {
             "@google/generative-ai": "^0.24.1",
