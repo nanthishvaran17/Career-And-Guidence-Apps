@@ -1,0 +1,41 @@
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+const express = require('express');
+const cors = require('cors');
+const db = require('./database/db'); // Ensure DB is initialized
+
+const app = express();
+const PORT = process.env.PORT || 4000;
+
+app.use(cors());
+app.use(express.json());
+
+// Routes
+const recommendationRoutes = require('./routes/recommendations');
+const govtJobRoutes = require('./routes/govt-jobs');
+const scholarshipRoutes = require('./routes/scholarships');
+const internshipRoutes = require('./routes/internships');
+const collegeRoutes = require('./routes/colleges');
+const chatbotRoutes = require('./routes/chatbot'); // AI Chatbot Route
+const userRoutes = require('./routes/users'); // User Profile Route
+
+app.use('/api/recommendations', recommendationRoutes);
+app.use('/api/govt-jobs', govtJobRoutes);
+app.use('/api/scholarships', scholarshipRoutes);
+app.use('/api/internships', internshipRoutes);
+app.use('/api/colleges', collegeRoutes);
+app.use('/api/chat', chatbotRoutes);
+app.use('/api/users', userRoutes);
+const skillsRoutes = require('./routes/skills');
+app.use('/api/skills', skillsRoutes);
+const aptitudeRoutes = require('./routes/aptitude');
+app.use('/api/aptitude', aptitudeRoutes);
+
+// Simple health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Backend running on http://localhost:${PORT}`);
+});

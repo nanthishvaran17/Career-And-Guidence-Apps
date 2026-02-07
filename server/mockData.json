@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    {
+      "id": 1,
+      "title": "Frontend Developer",
+      "skills": ["React", "TypeScript", "CSS"],
+      "level": "Entry"
+    },
+    {
+      "id": 2,
+      "title": "Data Analyst",
+      "skills": ["SQL", "Python", "Excel"],
+      "level": "Intermediate"
+    }
+  ]
+}
