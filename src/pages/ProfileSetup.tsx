@@ -61,7 +61,9 @@ export function ProfileSetup() {
 
   // Load Profile on Mount
   useEffect(() => {
-    fetch('/api/users/profile')
+    const userId = localStorage.getItem('userId');
+    const url = userId ? `/api/users/profile?id=${userId}` : '/api/users/profile';
+    fetch(url)
       .then(res => res.json())
       .then(data => {
         if (data) {

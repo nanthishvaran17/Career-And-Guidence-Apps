@@ -100,8 +100,11 @@ router.post('/profile', (req, res) => {
 
 // Get Profile
 router.get('/profile', (req, res) => {
-    // Return the default user (first one)
-    db.get('SELECT * FROM users LIMIT 1', [], (err, row) => {
+    const userId = req.query.id;
+    const sql = userId ? 'SELECT * FROM users WHERE id = ?' : 'SELECT * FROM users LIMIT 1';
+    const params = userId ? [userId] : [];
+
+    db.get(sql, params, (err, row) => {
         if (err) return res.status(500).json({ error: 'DB Error' });
         if (!row) return res.json(null);
 
@@ -181,8 +184,26 @@ router.post('/login-verify', (req, res) => {
                 name: row.name,
                 email: row.email,
                 phone: row.phone,
+                dob: row.dob,
+                educationLevel: row.education_level,
+                stream: row.stream,
+                marks: row.marks,
                 interests: safeJSON(row.interests),
-                targetExams: safeJSON(row.target_exams)
+                location: row.location,
+                state: row.state,
+                category: row.category,
+                familyIncome: row.family_income,
+                careerPreference: row.career_preference,
+                targetExams: safeJSON(row.target_exams),
+                disability: !!row.disability,
+                gender: row.gender,
+                institutionName: row.institution_name,
+                boardUniversity: row.board_university,
+                completionYear: row.completion_year,
+                skills: safeJSON(row.skills),
+                preferredCourses: safeJSON(row.preferred_courses),
+                preferredLocations: safeJSON(row.preferred_locations),
+                languages: safeJSON(row.languages)
             };
             res.json({ message: 'Login successful', user });
         } else {
@@ -221,8 +242,26 @@ router.post('/verify-otp', (req, res) => {
                 name: row.name,
                 email: row.email,
                 phone: row.phone,
+                dob: row.dob,
+                educationLevel: row.education_level,
+                stream: row.stream,
+                marks: row.marks,
                 interests: safeJSON(row.interests),
-                targetExams: safeJSON(row.target_exams)
+                location: row.location,
+                state: row.state,
+                category: row.category,
+                familyIncome: row.family_income,
+                careerPreference: row.career_preference,
+                targetExams: safeJSON(row.target_exams),
+                disability: !!row.disability,
+                gender: row.gender,
+                institutionName: row.institution_name,
+                boardUniversity: row.board_university,
+                completionYear: row.completion_year,
+                skills: safeJSON(row.skills),
+                preferredCourses: safeJSON(row.preferred_courses),
+                preferredLocations: safeJSON(row.preferred_locations),
+                languages: safeJSON(row.languages)
             };
             res.json({ message: 'Verified', user });
         } else {
