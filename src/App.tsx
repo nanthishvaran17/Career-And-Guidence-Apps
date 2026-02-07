@@ -14,7 +14,7 @@ import { ForgotPassword } from './pages/ForgotPassword';
 
 export default function App() {
   return (
-    <Router basename="/Career-Advisor-App-For--Education">
+    <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
