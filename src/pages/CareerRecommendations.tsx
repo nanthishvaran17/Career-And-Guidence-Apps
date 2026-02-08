@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -46,7 +47,7 @@ export function CareerRecommendations() {
           return;
         }
 
-        const response = await fetch('http://localhost:4000/api/recommendations', {
+        const response = await fetch(`${API_BASE_URL}/api/recommendations`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -137,7 +137,10 @@ const otpStore = new Map();
 
 // 1. Initial Login Check: Verify Password & Send OTP
 router.post('/login-init', (req, res) => {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = req.body.email ? req.body.email.trim().toLowerCase() : '';
+
+    console.log(`[Login] Attempt for email: '${email}'`);
 
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, row) => {
         if (err) return res.status(500).json({ error: 'DB Error' });

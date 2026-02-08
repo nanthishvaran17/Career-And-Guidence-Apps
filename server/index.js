@@ -7,7 +7,15 @@ const db = require('./database/db'); // Ensure DB is initialized
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow all origins (for debugging/deployment)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Run Seeder on Startup - MOVED TO db.js
+// const seedData = require('./database/seed');
+// seedData();
 app.use(express.json());
 
 // Routes

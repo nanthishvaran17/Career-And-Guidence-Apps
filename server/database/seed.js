@@ -1,7 +1,4 @@
-const db = require('./db');
-require('./schema'); // Ensure tables exist
-
-const seedData = () => {
+const seedData = (db) => {
     // EXPANDED DATASET
 
     const careers = [
@@ -534,21 +531,21 @@ const seedData = () => {
         { name: "St. John's Medical College", location: "Bangalore, Karnataka", field: "Medical", fees: "₹6L/year", rating: 4.7, type: "Private" },
         { name: "NIFT Delhi", location: "Delhi", field: "Fashion Design", fees: "₹2L/year", rating: 4.8, type: "Government" },
         { name: "NID Ahmedabad", location: "Ahmedabad, Gujarat", field: "Design", fees: "₹2.5L/year", rating: 4.9, type: "Government" }
-    ,
-        { 
-            name: "Nandha Engineering College", 
-            location: "Erode, Tamil Nadu", 
-            field: "Engineering (CSE, IT, ECE, Mech, Civil, AGRI, BME, CHEM)", 
-            fees: "₹50k - ₹85k/year", 
-            rating: 4.5, 
-            type: "Private (Autonomous)", 
-            website: "https://nandhaengg.org/", 
-            accommodation: "Hostel & Day Scholar Available", 
+        ,
+        {
+            name: "Nandha Engineering College",
+            location: "Erode, Tamil Nadu",
+            field: "Engineering (CSE, IT, ECE, Mech, Civil, AGRI, BME, CHEM)",
+            fees: "₹50k - ₹85k/year",
+            rating: 4.5,
+            type: "Private (Autonomous)",
+            website: "https://nandhaengg.org/",
+            accommodation: "Hostel & Day Scholar Available",
             details_link: "https://nandhaengg.org/",
-            placement_stats: JSON.stringify({ 
-                average_package: "₹4.5 LPA", 
-                highest_package: "₹12 LPA", 
-                placement_percentage: "92%" 
+            placement_stats: JSON.stringify({
+                average_package: "₹4.5 LPA",
+                highest_package: "₹12 LPA",
+                placement_percentage: "92%"
             }),
             reviews: JSON.stringify([
                 { user: "Student", rating: 4.5, comment: "Excellent infrastructure and supportive faculty." },
@@ -558,7 +555,7 @@ const seedData = () => {
         },
     ];
 
-        const govtJobs = [
+    const govtJobs = [
         // --- UPSC & CIVIL SERVICES ---
         {
             title: "Civil Services Exam (CSE)",
@@ -1037,7 +1034,7 @@ const seedData = () => {
     ];
 
     // Add Internship Data as well to handle the full reset
-        const internships = [
+    const internships = [
         {
             title: "Web Development Intern",
             company: "TechSolutions Inc",
@@ -1144,7 +1141,7 @@ const seedData = () => {
         }
     ];
 
-    
+
     const skills = [
         {
             title: "Python Programming",
@@ -1215,14 +1212,14 @@ const seedData = () => {
         const insertCollege = db.prepare("INSERT INTO colleges (name, location, field, fees, rating, type, website, details_link, accommodation, placement_stats, reviews, ranking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         colleges.forEach(college => {
             insertCollege.run(
-                college.name, 
-                college.location, 
-                college.field, 
-                college.fees, 
-                college.rating, 
-                college.type, 
-                college.website, 
-                college.details_link, 
+                college.name,
+                college.location,
+                college.field,
+                college.fees,
+                college.rating,
+                college.type,
+                college.website,
+                college.details_link,
                 college.accommodation,
                 college.placement_stats || null,
                 college.reviews || null,
@@ -1260,7 +1257,7 @@ const seedData = () => {
         });
         stmtIntern.finalize();
 
-        
+
         const stmtSkills = db.prepare("INSERT INTO skills (title, category, description, level, roadmap, resources) VALUES (?, ?, ?, ?, ?, ?)");
         skills.forEach(s => {
             stmtSkills.run(s.title, s.category, s.description, s.level, s.roadmap, s.resources);
@@ -1271,5 +1268,5 @@ const seedData = () => {
     });
 };
 
-setTimeout(seedData, 1000); // Wait for table creation
+// setTimeout(seedData, 1000); // Wait for table creation
 module.exports = seedData;

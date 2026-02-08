@@ -5,6 +5,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Checkbox } from '../components/ui/checkbox';
+import { API_BASE_URL } from '../config';
 
 export function Signup() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ export function Signup() {
       setLoading(true);
 
       try {
-        const res = await fetch('http://localhost:4000/api/users/signup', {
+        const res = await fetch(`${API_BASE_URL}/api/users/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

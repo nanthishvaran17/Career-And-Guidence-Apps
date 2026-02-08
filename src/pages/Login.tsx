@@ -4,6 +4,7 @@ import { GraduationCap, Mail, Lock, CheckCircle, Loader2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
+import { API_BASE_URL } from '../config';
 
 export function Login() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/users/login-init', {
+      const res = await fetch(`${API_BASE_URL}/api/users/login-init`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -31,7 +32,7 @@ export function Login() {
       // Handle non-JSON responses (fixes "Unexpected token <" error)
       const contentType = res.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("Server error: Received HTML instead of JSON. Check backend connection.");
+        throw new Error(`Server error: Received HTML instead of JSON from ${res.url}. Check backend connection.`);
       }
 
       const data = await res.json();
@@ -56,7 +57,7 @@ export function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/users/login-verify', {
+      const res = await fetch(`${API_BASE_URL}/api/users/login-verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })

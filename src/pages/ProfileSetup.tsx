@@ -14,6 +14,7 @@ import {
 } from '../components/ui/select';
 import { Checkbox } from '../components/ui/checkbox';
 import { Brain, GraduationCap, MapPin, BookOpen, TrendingUp, User } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export function ProfileSetup() {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ export function ProfileSetup() {
   // Load Profile on Mount
   useEffect(() => {
     const userId = localStorage.getItem('userId');
-    const url = userId ? `/api/users/profile?id=${userId}` : '/api/users/profile';
+    const url = userId ? `${API_BASE_URL}/api/users/profile?id=${userId}` : `${API_BASE_URL}/api/users/profile`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -88,7 +89,7 @@ export function ProfileSetup() {
 
     // Save to Backend Database
     try {
-      const res = await fetch('http://localhost:4000/api/users/profile', {
+      const res = await fetch(`${API_BASE_URL}/api/users/profile`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(profile)

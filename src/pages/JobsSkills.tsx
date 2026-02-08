@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -71,9 +72,9 @@ export function JobsSkills() {
         });
 
         const [govtRes, internRes, skillsRes] = await Promise.all([
-          fetch(`http://localhost:4000/api/govt-jobs?${govtParams}`),
-          fetch('http://localhost:4000/api/internships'),
-          fetch('http://localhost:4000/api/skills')
+          fetch(`${API_BASE_URL}/api/govt-jobs?${govtParams}`),
+          fetch(`${API_BASE_URL}/api/internships`),
+          fetch(`${API_BASE_URL}/api/skills`)
         ]);
 
         if (govtRes.ok) setGovtJobs(await govtRes.json());

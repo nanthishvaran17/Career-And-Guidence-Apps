@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -92,7 +93,7 @@ export function EducationGuidance() {
 
         // Independent fetches to prevent one failure from blocking the other
         try {
-          const scholarshipsRes = await fetch(`http://localhost:4000/api/scholarships?${scholarshipParams}`);
+          const scholarshipsRes = await fetch(`${API_BASE_URL}/api/scholarships?${scholarshipParams}`);
           if (scholarshipsRes.ok) {
             const data = await scholarshipsRes.json();
             setScholarships(data);
@@ -104,7 +105,7 @@ export function EducationGuidance() {
         }
 
         try {
-          const collegesRes = await fetch(`http://localhost:4000/api/colleges`);
+          const collegesRes = await fetch(`${API_BASE_URL}/api/colleges`);
           if (collegesRes.ok) {
             const data = await collegesRes.json();
             setColleges(data);

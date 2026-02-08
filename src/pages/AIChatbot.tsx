@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -53,7 +54,7 @@ export function AIChatbot() {
       const userId = localStorage.getItem('userId');
       if (userId) {
         try {
-          const res = await fetch(`http://localhost:4000/api/chat/history/${userId}`);
+          const res = await fetch(`${API_BASE_URL}/api/chat/history/${userId}`);
           if (res.ok) {
             const history = await res.json();
             if (history.length > 0) {
@@ -94,7 +95,7 @@ export function AIChatbot() {
 
     try {
       const userId = localStorage.getItem('userId');
-      const response = await fetch('http://localhost:4000/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage.text, userId })
@@ -133,7 +134,7 @@ export function AIChatbot() {
 
     if (confirm("Are you sure you want to clear your chat history?")) {
       try {
-        await fetch(`http://localhost:4000/api/chat/history/${userId}`, { method: 'DELETE' });
+        await fetch(`${API_BASE_URL}/api/chat/history/${userId}`, { method: 'DELETE' });
         setMessages([]);
       } catch (e) {
         console.error("Failed to clear history", e);
