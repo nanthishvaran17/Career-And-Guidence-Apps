@@ -454,9 +454,9 @@ export function EducationGuidance() {
                                   <p className="text-xs font-bold text-purple-700">{placement.highest_package || 'N/A'}</p>
                                   <p className="text-[10px] text-gray-400 mt-0.5">Highest</p>
                                 </div>
-                                <div className="px-3 py-2 text-center">
-                                  <p className="text-xs font-bold text-green-600">{placement.placement_percentage || 'N/A'}</p>
-                                  <p className="text-[10px] text-gray-400 mt-0.5">Placed</p>
+                                <div className="px-3 py-2 text-center bg-green-50">
+                                  <p className="text-xs font-bold text-green-700">{placement.placement_percentage || 'N/A'}</p>
+                                  <p className="text-[10px] text-green-600 mt-0.5 font-medium">Placed</p>
                                 </div>
                               </div>
                             </div>
@@ -486,7 +486,7 @@ export function EducationGuidance() {
                             </Button>
                             <Button
                               size="sm"
-                              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
+                              className="w-full bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl shadow-md hover:shadow-lg transition-all border-0"
                               onClick={() => window.open(college.website, '_blank')}
                             >
                               Apply Now
