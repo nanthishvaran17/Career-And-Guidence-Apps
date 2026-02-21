@@ -1,0 +1,25 @@
+[36mvite v6.3.5 [32mbuilding for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 1721 modules transformed.
+Γ£ù Build failed in 2.11s
+error during build:
+src/App.tsx (12:9): "AptitudeTest" is not exported by "src/pages/AptitudeTest.tsx", imported by "src/App.tsx".
+file: E:/Hackthon/Career and Education Advisor App/src/App.tsx:12:9
+
+10: import { AIChatbot } from './pages/AIChatbot';
+11: import { Notifications } from './pages/Notifications';
+12: import { AptitudeTest } from './pages/AptitudeTest';
+             ^
+13: import { ComparisonTool } from './pages/ComparisonTool';
+14: import { ForgotPassword } from './pages/ForgotPassword';
+
+    at getRollupError (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at error (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/parseAst.js:398:42)
+    at Module.error (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:17040:16)
+    at Module.traceVariable (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:17452:29)
+    at ModuleScope.findVariable (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:15070:39)
+    at FunctionScope.findVariable (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at FunctionBodyScope.findVariable (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at Identifier.bind (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:5447:40)
+    at CallExpression.bind (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)
+    at CallExpression.bind (file:///E:/Hackthon/Career%20and%20Education%20Advisor%20App/node_modules/rollup/dist/es/shared/node-entry.js:12179:15)

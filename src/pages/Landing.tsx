@@ -77,8 +77,12 @@ export function Landing() {
               <span className="text-xl text-gradient font-bold">CareerHub</span>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="ghost" onClick={() => navigate('/login')}>Login</Button>
-              <Button className="gradient-primary text-white" onClick={() => navigate('/signup')}>Get Started</Button>
+              <Button asChild variant="ghost">
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button asChild className="gradient-primary text-white">
+                <Link to="/signup">Get Started</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -87,7 +91,7 @@ export function Landing() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 gradient-primary opacity-5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full">
               <Star className="w-4 h-4 text-blue-600" />
@@ -105,12 +109,16 @@ export function Landing() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="gradient-primary text-white w-full sm:w-auto h-12 text-lg" onClick={() => navigate('/signup')}>
-                Get Started Free
-                <ArrowRight className="ml-2 w-5 h-5" />
+              <Button asChild size="lg" className="gradient-primary text-white w-full sm:w-auto h-12 text-lg">
+                <Link to="/signup">
+                  Get Started Free
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 text-lg" onClick={() => navigate('/login')}>
-                Sign In
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto h-12 text-lg">
+                <Link to="/login">
+                  Sign In
+                </Link>
               </Button>
             </div>
           </div>
@@ -202,9 +210,11 @@ export function Landing() {
           <p className="text-xl text-blue-100 mb-8">
             Join thousands of students who have found their dream careers with CareerHub
           </p>
-          <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 h-12 px-8 text-lg" onClick={() => navigate('/signup')}>
-            Start Your Journey
-            <ArrowRight className="ml-2 w-5 h-5" />
+          <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100 h-12 px-8 text-lg">
+            <Link to="/signup">
+              Start Your Journey
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </section>

@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { 
-  Compass, 
-  GraduationCap, 
-  Briefcase, 
+import {
+  Compass,
+  GraduationCap,
+  Briefcase,
   MessageSquare,
   TrendingUp,
   Bookmark,
@@ -13,11 +13,13 @@ import {
   ArrowRight,
   Star,
   Award,
-  Target
+  Target,
+  ArrowRightLeft
 } from 'lucide-react';
 import { careers } from '../data/mockData';
 
 export function Dashboard() {
+  const navigate = useNavigate();
   const stats = [
     { label: 'Careers Explored', value: '12', icon: Compass, color: 'blue' },
     { label: 'Jobs Saved', value: '8', icon: Bookmark, color: 'green' },
@@ -111,6 +113,48 @@ export function Dashboard() {
                   </Card>
                 </Link>
               ))}
+            </div>
+
+            {/* New Dashboard Cards */}
+            <div>
+              <h3 className="mb-4">Explore More</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="p-6 border-l-4 border-indigo-500 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate('/careers')}>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-indigo-100 rounded-lg text-indigo-600">
+                      <Compass className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg">Career Path</h3>
+                      <p className="text-sm text-gray-500">Discover your ideal role</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 border-l-4 border-green-500 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate('/education')}>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-green-100 rounded-lg text-green-600">
+                      <GraduationCap className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg">Education</h3>
+                      <p className="text-sm text-gray-500">Find colleges & streams</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 border-l-4 border-purple-500 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate('/compare')}>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-purple-100 rounded-lg text-purple-600">
+                      <ArrowRightLeft className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg">Compare & Decide</h3>
+                      <p className="text-sm text-gray-500">Colleges, Schools, Jobs</p>
+                    </div>
+                  </div>
+                </Card>
+              </div>
             </div>
 
             {/* Recent Activity */}

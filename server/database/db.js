@@ -23,15 +23,15 @@ const db = new sqlite3.Database(dbPath, (err) => {
         createTables();
 
         // Seed Data if needed (checks happen inside)
-        const seedData = require('./seed');
+        // const seedData = require('./seed');
         // Small delay to ensure table creation commands are queued/processed
-        setTimeout(() => {
-            try {
-                seedData(db);
-            } catch (e) {
-                console.error("Seeding failed:", e);
-            }
-        }, 1000);
+        // setTimeout(() => {
+        //     try {
+        //         seedData(db);
+        //     } catch (e) {
+        //         console.error("Seeding failed:", e);
+        //     }
+        // }, 1000);
     }
 });
 

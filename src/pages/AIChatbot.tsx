@@ -48,38 +48,73 @@ export function AIChatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Load History from Local Storage AND Backend
   useEffect(() => {
-    // Load History
-    const fetchHistory = async () => {
+    const loadHistory = async () => {
       const userId = localStorage.getItem('userId');
-      if (userId) {
+      if (!userId) return;
+
+      // 1. Load Local Backup First (Instant)
+      const localBackup = localStorage.getItem(`chat_history_${userId}`);
+      let localMessages: Message[] = [];
+      if (localBackup) {
         try {
-          const res = await fetch(`${API_BASE_URL}/api/chat/history/${userId}`);
-          if (res.ok) {
-            const history = await res.json();
-            if (history.length > 0) {
-              setMessages(history.map((h: any) => ({
-                id: h.id,
-                text: h.text,
-                sender: h.sender,
-                timestamp: new Date(h.timestamp)
-              })));
-            }
-          }
+          localMessages = JSON.parse(localBackup).map((m: any) => ({
+            ...m,
+            timestamp: new Date(m.timestamp)
+          }));
+          setMessages(prev => {
+            // Combine initial bot message with local backup, avoiding duplicates
+            const combined = [...prev, ...localMessages].filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
+            return combined;
+          });
         } catch (e) {
-          console.error("Failed to load history", e);
+          console.error("Local backup parse error", e);
         }
       }
+
+      // 2. Fetch from Backend (Sync)
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/chat/history/${userId}`);
+        if (res.ok) {
+          const remoteHistory = await res.json();
+          if (remoteHistory.length > 0) {
+            const parsedRemote = remoteHistory.map((h: any) => ({
+              id: h.id,
+              text: h.text,
+              sender: h.sender,
+              timestamp: new Date(h.timestamp)
+            }));
+
+            setMessages(prev => {
+              // Merge Local + Remote (Remote is source of truth, but Local might have unsent items)
+              // Currently simple merge: unique by ID
+              const combined = [...prev, ...parsedRemote].filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
+              // Update Local Backup with latest authenticated history
+              localStorage.setItem(`chat_history_${userId}`, JSON.stringify(combined));
+              return combined;
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load backend history", e);
+      }
     };
-    fetchHistory();
+    loadHistory();
   }, []);
 
   useEffect(() => {
     scrollToBottom();
+    // Auto-backup to localStorage whenever messages change
+    const userId = localStorage.getItem('userId');
+    if (userId && messages.length > 1) { // Don't overwrite with just the welcome message
+      localStorage.setItem(`chat_history_${userId}`, JSON.stringify(messages));
+    }
   }, [messages]);
 
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
+    const userId = localStorage.getItem('userId');
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -88,13 +123,15 @@ export function AIChatbot() {
       timestamp: new Date()
     };
 
-    // Optimistic UI Update
-    setMessages(prev => [...prev, userMessage]);
+    // Optimistic UI Update & Local Backup
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
+    if (userId) localStorage.setItem(`chat_history_${userId}`, JSON.stringify(updatedMessages));
+
     setInputText('');
     setIsTyping(true);
 
     try {
-      const userId = localStorage.getItem('userId');
       const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -110,15 +147,23 @@ export function AIChatbot() {
         timestamp: new Date()
       };
 
-      setMessages(prev => [...prev, botResponse]);
+      setMessages(prev => {
+        const newHistory = [...prev, botResponse];
+        if (userId) localStorage.setItem(`chat_history_${userId}`, JSON.stringify(newHistory));
+        return newHistory;
+      });
     } catch (error) {
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: "I'm having trouble connecting to the server. Please ensure the backend is running.",
+        text: "I'm having trouble connecting to the server. But don't worry, your chat is saved locally!",
         sender: 'bot',
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, errorResponse]);
+      setMessages(prev => {
+        const newHistory = [...prev, errorResponse];
+        if (userId) localStorage.setItem(`chat_history_${userId}`, JSON.stringify(newHistory));
+        return newHistory;
+      });
     } finally {
       setIsTyping(false);
     }
@@ -135,10 +180,12 @@ export function AIChatbot() {
     if (confirm("Are you sure you want to clear your chat history?")) {
       try {
         await fetch(`${API_BASE_URL}/api/chat/history/${userId}`, { method: 'DELETE' });
-        setMessages([]);
       } catch (e) {
-        console.error("Failed to clear history", e);
+        console.error("Failed to clear history on server", e);
       }
+      // Always clear local
+      localStorage.removeItem(`chat_history_${userId}`);
+      setMessages([messages[0]]); // Keep welcome message
     }
   };
 

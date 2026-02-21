@@ -51,6 +51,7 @@ export function JobsSkills() {
   const [searchTerm, setSearchTerm] = useState('');
   const [savedJobs, setSavedJobs] = useState<number[]>([]);
   const [govtJobs, setGovtJobs] = useState<Job[]>([]);
+  const [privateJobs, setPrivateJobs] = useState<any[]>([]); // New state
   const [internships, setInternships] = useState<Internship[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -71,15 +72,17 @@ export function JobsSkills() {
           category: profile.category || ''
         });
 
-        const [govtRes, internRes, skillsRes] = await Promise.all([
+        const [govtRes, internRes, skillsRes, jobsRes] = await Promise.all([
           fetch(`${API_BASE_URL}/api/govt-jobs?${govtParams}`),
           fetch(`${API_BASE_URL}/api/internships`),
-          fetch(`${API_BASE_URL}/api/skills`)
+          fetch(`${API_BASE_URL}/api/skills`),
+          fetch(`${API_BASE_URL}/api/jobs`) // Fetch Private Jobs
         ]);
 
         if (govtRes.ok) setGovtJobs(await govtRes.json());
         if (internRes.ok) setInternships(await internRes.json());
         if (skillsRes.ok) setSkills(await skillsRes.json());
+        if (jobsRes.ok) setPrivateJobs(await jobsRes.json());
 
       } catch (err) {
         console.error("Failed to fetch jobs/skills", err);
@@ -174,10 +177,14 @@ export function JobsSkills() {
 
         {/* Tabs */}
         <Tabs defaultValue="govt" className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-3">
+          <TabsList className="grid w-full max-w-2xl grid-cols-4">
             <TabsTrigger value="govt">
-              <Briefcase className="w-4 h-4 mr-2" />
+              <Building2 className="w-4 h-4 mr-2" />
               Govt Jobs
+            </TabsTrigger>
+            <TabsTrigger value="private">
+              <Briefcase className="w-4 h-4 mr-2" />
+              Private Jobs
             </TabsTrigger>
             <TabsTrigger value="internships">
               <GraduationCap className="w-4 h-4 mr-2" />
@@ -440,6 +447,53 @@ export function JobsSkills() {
               </Card>
             </div>
           )}
+
+          {/* Private Jobs Tab */}
+          <TabsContent value="private" className="space-y-4">
+            {loading ? (
+              <div className="flex justify-center p-8"><Loader2 className="animate-spin text-blue-500" /></div>
+            ) : (
+              <div className="space-y-3">
+                {privateJobs.filter(j => j.title.toLowerCase().includes(searchTerm.toLowerCase()) || j.company?.toLowerCase().includes(searchTerm.toLowerCase())).map((job) => (
+                  <Card key={job.id} className="p-5 hover:shadow-lg transition-shadow">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                        <Briefcase className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1">
+                            <h4 className="mb-1 font-bold text-lg">{job.title}</h4>
+                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                              <Building2 className="w-4 h-4" />
+                              <span className="font-medium">{job.company}</span> • {job.location}
+                            </div>
+                          </div>
+                          <Badge variant="outline" className="ml-2">{job.job_type}</Badge>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <Badge variant="secondary" className="bg-blue-50 text-blue-700 hover:bg-blue-100">{job.sector}</Badge>
+                          <Badge variant="outline" className="text-green-600 border-green-200">
+                            <IndianRupee className="w-3 h-3 mr-1" />{job.salary_range}
+                          </Badge>
+                        </div>
+
+                        <p className="text-sm text-gray-600 mb-4 line-clamp-2">{job.description}</p>
+
+                        <div className="flex gap-2">
+                          <Button asChild size="sm" className="flex-1 gradient-primary text-white">
+                            <a href={job.apply_link || '#'} target="_blank" rel="noopener noreferrer">Apply Now</a>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            )}
+            {!loading && privateJobs.length === 0 && <p className="text-center text-gray-500">No private jobs found.</p>}
+          </TabsContent>
 
         </Tabs>
       </div>

@@ -25,15 +25,45 @@ async function testModel(modelName) {
         const response = await result.response;
         console.log(`[SUCCESS] ${modelName}:`, response.text());
     } catch (error) {
-        console.error(`[FAILED] ${modelName}:`, error.message);
-        // Print full error for details
-        if (error.response) console.error(JSON.stringify(error.response, null, 2));
+        const errorMsg = `[FAILED] ${modelName}: ${error.message}\n` + (error.response ? JSON.stringify(error.response, null, 2) : '');
+        console.error(errorMsg);
+        fs.appendFileSync('error_log.txt', errorMsg + '\n\n');
+    }
+}
+
+async function listModels() {
+    console.log("Listing available models...");
+    try {
+        // For google-generative-ai, we might need a different way to list, 
+        // but let's try a direct fetch if the SDK doesn't expose it easily in this context,
+        // OR better yet, just use a known working model if any.
+        // Actually the SDK has a list_models method but it might be on a different class.
+        // Let's just try to generate with 'gemini-1.0-pro' just in case.
+        // But to be sure, let's try to verify if the key works AT ALL.
+
+        // The error 404 usually means the API/Model is not found.
+        // Let's try to see if we can get a list of models.
+        // Note: The Node SDK might not have a direct listModels method on the GenerativeModel instance?
+        // It's usually on the GoogleGenerativeAI instance or similar.
+        // Looking at docs: genAI.getGenerativeModel is for a specific model.
+        // To list, we might need to use the REST API manually if the SDK version is old or I don't recall the method.
+        // Wait, the error suggests "Call ListModels".
+
+        // For the purpose of this script, let's just log that we suspect the key is invalid.
+    } catch (e) {
+        console.error(e);
     }
 }
 
 async function runTests() {
-    await testModel("gemini-pro");
-    await testModel("gemini-1.5-flash"); // Just to check
+    // await testModel("gemini-pro");
+    // await testModel("gemini-1.5-flash"); 
+    // Let's retry with just gemini-1.5-flash but print if it fails. 
+    // Actually we already did that.
+
+    // Let's try 'gemini-1.0-pro' just in case.
+    await testModel("gemini-1.0-pro-latest");
+    await testModel("gemini-1.5-flash-latest");
 }
 
 runTests();

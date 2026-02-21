@@ -1,12 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  Home, 
-  Compass, 
-  GraduationCap, 
-  Briefcase, 
-  MessageSquare, 
-  Bell, 
+import {
+  Home,
+  Compass,
+  GraduationCap,
+  Briefcase,
+  MessageSquare,
+  Bell,
   User,
+  BrainCircuit,
   X
 } from 'lucide-react';
 
@@ -23,16 +24,20 @@ const navigation = [
   { name: 'AI Chatbot', href: '/chatbot', icon: MessageSquare },
   { name: 'Notifications', href: '/notifications', icon: Bell },
   { name: 'Profile', href: '/profile-setup', icon: User },
+  { name: 'Aptitude Test', href: '/aptitude-test', icon: BrainCircuit },
 ];
 
 export function Sidebar({ open, onClose }: SidebarProps) {
   const location = useLocation();
+  const userName = localStorage.getItem('userName') || 'Student';
+  const userEmail = localStorage.getItem('userEmail') || 'nanthish@gmail.com';
+  const userInitials = userName.substring(0, 2).toUpperCase();
 
   return (
     <>
       {/* Mobile overlay */}
       {open && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={onClose}
         />
@@ -70,8 +75,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                   onClick={onClose}
                   className={`
                     flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                    ${isActive 
-                      ? 'bg-gradient-to-r from-blue-50 to-green-50 text-blue-600' 
+                    ${isActive
+                      ? 'bg-gradient-to-r from-blue-50 to-green-50 text-blue-600'
                       : 'text-gray-700 hover:bg-gray-100'
                     }
                   `}
@@ -87,11 +92,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           <div className="p-4 border-t border-gray-200">
             <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-card">
               <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center">
-                <span className="text-white">SK</span>
+                <span className="text-white font-bold">{userInitials}</span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-900 truncate">Student Name</p>
-                <p className="text-xs text-gray-500 truncate">student@email.com</p>
+                <p className="text-sm font-medium text-gray-900 truncate">{userName}</p>
+                <p className="text-xs text-gray-500 truncate">{userEmail}</p>
               </div>
             </div>
           </div>

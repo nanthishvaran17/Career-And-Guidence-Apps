@@ -41,7 +41,8 @@ router.post('/profile', (req, res) => {
             interests=?, location=?, state=?, category=?, family_income=?, 
             career_preference=?, target_exams=?, disability=?, gender=?,
             institution_name=?, board_university=?, completion_year=?,
-            skills=?, preferred_courses=?, preferred_locations=?, languages=?
+            skills=?, preferred_courses=?, preferred_locations=?, languages=?,
+            profile_data=?
             WHERE id=?`;
 
         const params = [
@@ -53,6 +54,7 @@ router.post('/profile', (req, res) => {
             JSON.stringify(req.body.preferredCourses || []),
             JSON.stringify(req.body.preferredLocations || []),
             JSON.stringify(req.body.languages || []),
+            JSON.stringify(req.body.profileData || {}),
             userId
         ];
 
@@ -68,8 +70,8 @@ router.post('/profile', (req, res) => {
             interests, location, state, category, family_income, 
             career_preference, target_exams, disability, gender,
             institution_name, board_university, completion_year,
-            skills, preferred_courses, preferred_locations, languages
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            skills, preferred_courses, preferred_locations, languages, profile_data
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
         const params = [
             name, phone, dob, educationLevel, stream, marks,
@@ -79,7 +81,11 @@ router.post('/profile', (req, res) => {
             JSON.stringify(req.body.skills || []),
             JSON.stringify(req.body.preferredCourses || []),
             JSON.stringify(req.body.preferredLocations || []),
-            JSON.stringify(req.body.languages || [])
+            JSON.stringify(req.body.skills || []),
+            JSON.stringify(req.body.preferredCourses || []),
+            JSON.stringify(req.body.preferredLocations || []),
+            JSON.stringify(req.body.languages || []),
+            JSON.stringify(req.body.profileData || {})
         ];
 
         db.run(sql, params, function (err) {
@@ -95,10 +101,8 @@ router.post('/profile', (req, res) => {
         db.get('SELECT id FROM users LIMIT 1', [], (err, row) => {
             if (err) return res.status(500).json({ error: 'DB Error' });
             if (row) {
-                // User exists, update them
                 performUpdate(row.id);
             } else {
-                // No user exists, create one
                 performInsert();
             }
         });
@@ -122,6 +126,7 @@ router.get('/profile', (req, res) => {
         try { row.preferred_courses = JSON.parse(row.preferred_courses); } catch (e) { row.preferred_courses = []; }
         try { row.preferred_locations = JSON.parse(row.preferred_locations); } catch (e) { row.preferred_locations = []; }
         try { row.languages = JSON.parse(row.languages); } catch (e) { row.languages = []; }
+        try { row.profile_data = JSON.parse(row.profile_data); } catch (e) { row.profile_data = {}; }
         row.disability = !!row.disability;
 
         res.json(row);

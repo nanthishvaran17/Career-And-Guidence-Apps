@@ -10,6 +10,7 @@ import { JobsSkills } from './pages/JobsSkills';
 import { AIChatbot } from './pages/AIChatbot';
 import { Notifications } from './pages/Notifications';
 import { AptitudeTest } from './pages/AptitudeTest';
+import { ComparisonTool } from './pages/ComparisonTool';
 import { ForgotPassword } from './pages/ForgotPassword';
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/chatbot" element={<AIChatbot />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/aptitude-test" element={<AptitudeTest />} />
+        <Route path="/compare" element={<ComparisonTool />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

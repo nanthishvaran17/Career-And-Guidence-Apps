@@ -1,0 +1,307 @@
+{
+  "test_id": "GEN-5A8AC888",
+  "total_questions": 25,
+  "duration_minutes": 30,
+  "questions": [
+    {
+      "question_id": "98d852b0-1bb9-4c3d-8def-283f1db79f2a",
+      "category": "Logical",
+      "question": "Look at this series: 2, 1, (1/2), (1/4), ... What number should come next?",
+      "options": [
+        "(1/16)",
+        "(1/8)",
+        "(1/3)",
+        "(2/8)"
+      ],
+      "encrypted_correct_answer": "f447454fefc5baa58a60675fd8ebcbd87a423d5eea93c4c7d74a708a17292bcd"
+    },
+    {
+      "question_id": "7c542e68-aef2-4945-835d-3ce92ddb8c4b",
+      "category": "Logical",
+      "question": "SCD, TEF, UGH, ____, WKL",
+      "options": [
+        "CMN",
+        "VIJ",
+        "IJT",
+        "UJI"
+      ],
+      "encrypted_correct_answer": "0ff70e3e5281540b6eeddb276eb1e6994a70fe1a36f66756674bababfa0978bf"
+    },
+    {
+      "question_id": "67cb0cdb-847d-4a68-8175-353a791bb83a",
+      "category": "Logical",
+      "question": "Which word does NOT belong with the others?",
+      "options": [
+        "Book",
+        "Chapter",
+        "Glossary",
+        "Index"
+      ],
+      "encrypted_correct_answer": "92719fe0cf8cd51592af31ee8a5736d79f7273777fa3f7b70bfe993a4cd32180"
+    },
+    {
+      "question_id": "673a00b4-1680-48e3-acc1-6fb7d11c6e4b",
+      "category": "Logical",
+      "question": "Safe : Secure :: Protect : ?",
+      "options": [
+        "Guard",
+        "Conserve",
+        "Lock",
+        "Sure"
+      ],
+      "encrypted_correct_answer": "a9d4034da07d8ef31db1cd4119b6a4552fdfbd19787e2848e71c8ee3b47703a7"
+    },
+    {
+      "question_id": "791f5477-7ca8-4570-be5b-351992e2bad9",
+      "category": "Logical",
+      "question": "If A = 26, SUN = 27, then CAT = ?",
+      "options": [
+        "24",
+        "58",
+        "27",
+        "57"
+      ],
+      "encrypted_correct_answer": "c837649cce43f2729138e72cc315207057ac82599a59be72765a477f22d14a54"
+    },
+    {
+      "question_id": "ab2b7ae8-a72b-45c6-8f88-78b63219c30c",
+      "category": "Logical",
+      "question": "Statement: All mangoes are golden in color. No golden-colored things are cheap. Conclusion: 1) All mangoes are cheap. 2) Golden-colored mangoes are not cheap.",
+      "options": [
+        "Only 1 follows",
+        "Either 1 or 2",
+        "Only 2 follows",
+        "Both follow"
+      ],
+      "encrypted_correct_answer": "2a427bdc5c483b9fa1bdee8c2c40d145d218dc4a6fd99f4c2e5521cb7d1ec3ea"
+    },
+    {
+      "question_id": "94b469d5-613c-4813-b579-7622de893f7c",
+      "category": "Logical",
+      "question": "Point A is 5m North of Point B. Point C is 5m East of Point B. What is the direction of A with respect to C?",
+      "options": [
+        "North-East",
+        "South-West",
+        "South-East",
+        "North-West"
+      ],
+      "encrypted_correct_answer": "ca5b0059e9ca280f76eef485c9a9bc9b50c81042acae4cd5ff7166be3415272b"
+    },
+    {
+      "question_id": "c7be1b8e-de5c-4609-8a6a-ffb38de44bde",
+      "category": "Logical",
+      "question": "If in a certain code, TWENTY is written as 863985 and ELEVEN is written as 323039, how is TWELVE written in that code?",
+      "options": [
+        "863203",
+        "863063",
+        "863584",
+        "863903"
+      ],
+      "encrypted_correct_answer": "e080828a459665cd03a64ee67a1131dfc571da5ff8f36ec375b7a357059bac12"
+    },
+    {
+      "question_id": "6f3da382-87f4-418a-bd74-ad9e5a9b360f",
+      "category": "Logical",
+      "question": "A man points to a woman and says, 'Her mother is the only daughter of my mother.' How is the woman related to the man?",
+      "options": [
+        "Sister",
+        "Daughter",
+        "Niece",
+        "Mother"
+      ],
+      "encrypted_correct_answer": "4ed28f82ca96c3342a5c591668270f78c26dae22fd953772a6c14e52f46e1b22"
+    },
+    {
+      "question_id": "89218d44-036d-4b49-9dfe-217f9482f495",
+      "category": "Logical",
+      "question": "Find the missing number in the matrix:\nRow 1: 6, 4, 24\nRow 2: 18, 3, 54\nRow 3: 15, ?, 45",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "encrypted_correct_answer": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+    },
+    {
+      "question_id": "71cd47dc-5905-4f67-972e-fe9d9724d726",
+      "category": "Quantitative",
+      "question": "A train 125 m long passes a man, running at 5 km/hr in the same direction in which the train is going, in 10 seconds. The speed of the train is:",
+      "options": [
+        "55 km/hr",
+        "50 km/hr",
+        "54 km/hr",
+        "45 km/hr"
+      ],
+      "encrypted_correct_answer": "e11413e64ad91eea26878dff51c68570235f5e0082c3a1ed58941483d5d78435"
+    },
+    {
+      "question_id": "4fa87131-1136-447a-a272-a2ac820b1519",
+      "category": "Quantitative",
+      "question": "The sum of ages of 5 children born at the intervals of 3 years each is 50 years. What is the age of the youngest child?",
+      "options": [
+        "8 years",
+        "4 years",
+        "10 years",
+        "None of these"
+      ],
+      "encrypted_correct_answer": "cfd73a0bc46c7ae5aca20434334cb1edf7a57611e4882390ba86fe0a667bd4c2"
+    },
+    {
+      "question_id": "9d7ce2cb-7fca-49bb-8a3b-703431fae953",
+      "category": "Quantitative",
+      "question": "A father said to his son, 'I was as old as you are at the present at the time of your birth'. If the father's age is 38 years now, the son's age five years back was:",
+      "options": [
+        "38 years",
+        "19 years",
+        "14 years",
+        "33 years"
+      ],
+      "encrypted_correct_answer": "97f1161249bfb4b130ddbb9b98522fdcecbad04a0a9b2512f430421579bc0e1d"
+    },
+    {
+      "question_id": "b47bbba1-6bd8-4491-8eaa-a4d0096fd60c",
+      "category": "Quantitative",
+      "question": "A alone can do a piece of work in 6 days and B alone in 8 days. A and B undertook to do it for ₹3200. With the help of C, they completed the work in 3 days. How much is to be paid to C?",
+      "options": [
+        "₹375",
+        "₹400",
+        "₹800",
+        "₹600"
+      ],
+      "encrypted_correct_answer": "188e620b07eb1f9f41b2b4898708c8ddaf55b274832697c686286757baf75ed5"
+    },
+    {
+      "question_id": "60807de8-e5ff-4697-b2da-c8270489b1de",
+      "category": "Quantitative",
+      "question": "What is the probability of getting a sum of 9 from two throws of a dice?",
+      "options": [
+        "1/9",
+        "1/8",
+        "1/12",
+        "1/6"
+      ],
+      "encrypted_correct_answer": "7dbf57a3ed617234cd386b0f2042474ab8a0f152f17305ad0d1f8e62412a2629"
+    },
+    {
+      "question_id": "ce27b50a-995f-4382-829f-673b7b584706",
+      "category": "Quantitative",
+      "question": "A vendor bought toffees at 6 for a rupee. How many for a rupee must he sell to gain 20%?",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "5"
+      ],
+      "encrypted_correct_answer": "ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d"
+    },
+    {
+      "question_id": "3a681712-0e9b-472f-b89a-b9d301012003",
+      "category": "Quantitative",
+      "question": "The average of 20 numbers is zero. Of them, at the most, how many may be greater than zero?",
+      "options": [
+        "19",
+        "1",
+        "10",
+        "0"
+      ],
+      "encrypted_correct_answer": "9400f1b21cb527d7fa3d3eabba93557a18ebe7a2ca4e471cfe5e4c5b4ca7f767"
+    },
+    {
+      "question_id": "fe726d93-e047-4a20-8a47-41b4efbdebc6",
+      "category": "Quantitative",
+      "question": "It was Sunday on Jan 1, 2006. What was the day of the week on Jan 1, 2010?",
+      "options": [
+        "Friday",
+        "Saturday",
+        "Sunday",
+        "Wednesday"
+      ],
+      "encrypted_correct_answer": "1a79668eac4051a9128b81c116007d1b41ce17828d7722afc9746699f4e817b8"
+    },
+    {
+      "question_id": "8f99656a-ba4f-4cf3-968c-5a11842ed43f",
+      "category": "Verbal",
+      "question": "Synonym of: CANDID",
+      "options": [
+        "Apparent",
+        "Explicit",
+        "Bright",
+        "Frank"
+      ],
+      "encrypted_correct_answer": "77646f5a4f3166637627abe998e7a1470fe72d8b430f067dafa86263f1f23f94"
+    },
+    {
+      "question_id": "68dc7218-5267-4898-8919-707f69490d33",
+      "category": "Verbal",
+      "question": "Antonym of: ENORMOUS",
+      "options": [
+        "Soft",
+        "Average",
+        "Weak",
+        "Tiny"
+      ],
+      "encrypted_correct_answer": "8950abfda7b727630760dd35bcf5c3daa7631aff223a90f7728c0d2521dde10c"
+    },
+    {
+      "question_id": "43850552-775d-4500-b507-574cbda716c5",
+      "category": "Verbal",
+      "question": "Find the correctly spelt word.",
+      "options": [
+        "Advertiesment",
+        "Advertisment",
+        "Adverisment",
+        "Advertisement"
+      ],
+      "encrypted_correct_answer": "aacfba7d190db7655bedec3844951645af75cf9b6657096356259a608a4c3185"
+    },
+    {
+      "question_id": "70e840e5-df9c-4acb-b5b2-9c0caea8e9df",
+      "category": "Verbal",
+      "question": "Complete the sentence: The doctor ____ the patient to stop smoking.",
+      "options": [
+        "adviced",
+        "advise",
+        "advised",
+        "advice"
+      ],
+      "encrypted_correct_answer": "eb381108d0d8c070b8f8bcf094f67bc67d3a36b7528150b993b47e1b0e99a10d"
+    },
+    {
+      "question_id": "5e67c805-fcc4-4fb0-a860-e588bacdd314",
+      "category": "Verbal",
+      "question": "Idiom: To keep one's temper",
+      "options": [
+        "To preserve ones energy",
+        "To be in good mood",
+        "To be aloof from",
+        "To become hungry"
+      ],
+      "encrypted_correct_answer": "5032b5b4596c0124453e1c06370f087f0846ca794468f3d234f1f5d8bd2f71ea"
+    },
+    {
+      "question_id": "b912023a-5e2d-4ef8-8693-4514d3e4cd7f",
+      "category": "Verbal",
+      "question": "One word substitution: A person who renounces the world and practices self-discipline in order to attain salvation.",
+      "options": [
+        "Antiquarian",
+        "Sceptic",
+        "Ascetic",
+        "Devotee"
+      ],
+      "encrypted_correct_answer": "b82795824ccf54a9c63aeead1720678c1413e3fed1ff6367018d2a17c89b16ac"
+    },
+    {
+      "question_id": "6c37978c-df6d-4a42-9695-e927275524ef",
+      "category": "Verbal",
+      "question": "Rearrange: (1) medicine (2) a (3) Neeta (4) given (5) was",
+      "options": [
+        "51432",
+        "15423",
+        "35421",
+        "25431"
+      ],
+      "encrypted_correct_answer": "44749230d12911b0dd38017d3bb581bb86cf7eee45bae97023025417cef97e68"
+    }
+  ]
+}

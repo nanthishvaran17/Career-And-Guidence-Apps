@@ -38,6 +38,10 @@ const skillsRoutes = require('./routes/skills');
 app.use('/api/skills', skillsRoutes);
 const aptitudeRoutes = require('./routes/aptitude');
 app.use('/api/aptitude', aptitudeRoutes);
+const schoolRoutes = require('./routes/schools');
+app.use('/api/schools', schoolRoutes);
+const jobRoutes = require('./routes/jobs');
+app.use('/api/jobs', jobRoutes);
 
 // Simple health check
 app.get('/api/health', (req, res) => {
