@@ -18,7 +18,11 @@ import {
   BookmarkCheck,
   Filter,
   Loader2,
-  ArrowRightLeft
+  ArrowRightLeft,
+  TrendingUp,
+  Users,
+  Building2,
+  ExternalLink
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -48,6 +52,9 @@ interface College {
   placement_stats?: string;
   admission_mode?: string;
   reviews?: string;
+  accreditations?: string;
+  accommodation?: string;
+  details_link?: string;
 }
 
 interface School {
@@ -346,94 +353,146 @@ export function EducationGuidance() {
                   {colleges.map((college) => {
                     const depts = parseJSON(college.departments, []);
                     const placement = parseJSON(college.placement_stats, {});
+                    const reviews = parseJSON(college.reviews, []);
+                    const accreditations = parseJSON(college.accreditations, []);
+                    const reviewCount = reviews.length;
                     return (
-                      <Card key={college.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 overflow-hidden flex flex-col h-full">
-                        <div className="p-5 flex flex-col h-full space-y-4">
-                          {/* Header */}
-                          <div className="flex justify-between items-start gap-4">
-                            <div className="space-y-1">
-                              <h3 className="font-bold text-lg text-gray-900 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[3.5rem]">
+                      <Card key={college.id} className="group hover:shadow-2xl transition-all duration-300 border border-gray-200 hover:border-indigo-300 overflow-hidden flex flex-col h-full rounded-2xl">
+                        {/* Card Top Accent Bar */}
+                        <div className="h-1 w-full bg-gradient-to-r from-indigo-500 to-purple-600" />
+
+                        <div className="p-5 flex flex-col h-full gap-3">
+
+                          {/* ─── HEADER: Name + Rating + Bookmark ─── */}
+                          <div className="flex justify-between items-start gap-3">
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-bold text-base text-gray-900 leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">
                                 {college.name}
                               </h3>
-                              <div className="flex items-center gap-2 text-sm text-gray-600">
-                                <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
-                                <span className="truncate">{college.district}</span>
-                                <span className="text-gray-300">•</span>
-                                <span className="truncate">{college.type}</span>
-                                {college.ranking && (
-                                  <>
-                                    <span className="text-gray-300">•</span>
-                                    <span className="text-amber-600 font-medium truncate">{college.ranking}</span>
-                                  </>
-                                )}
-                              </div>
+                              {/* Accreditation Badges */}
+                              {(college.ranking || accreditations.length > 0) && (
+                                <div className="flex flex-wrap gap-1 mt-1.5">
+                                  {college.ranking && college.ranking.split('|').map((acc: string, i: number) => (
+                                    <span key={i} className="inline-flex items-center gap-1 text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-2 py-0.5">
+                                      <Award className="w-2.5 h-2.5" />
+                                      {acc.trim()}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
                             </div>
-                            <div className="flex flex-col items-end gap-2 shrink-0">
-                              <Badge className="bg-green-600 hover:bg-green-700 text-white gap-1 px-2">
-                                {college.rating} <Star className="w-3 h-3 fill-current" />
-                              </Badge>
-                              <button onClick={() => toggleSaveCollege(college.id)} className="text-gray-400 hover:text-blue-600 transition-colors">
-                                {savedColleges.includes(String(college.id)) ? <BookmarkCheck className="w-5 h-5 text-blue-600" /> : <Bookmark className="w-5 h-5" />}
+                            <div className="flex flex-col items-end gap-1.5 shrink-0">
+                              {/* Star Rating */}
+                              <div className="flex items-center gap-1 bg-amber-50 border border-amber-200 rounded-full px-2.5 py-1">
+                                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                <span className="text-sm font-bold text-amber-700">{college.rating}</span>
+                              </div>
+                              {reviewCount > 0 && (
+                                <span className="text-[10px] text-gray-400">({reviewCount} reviews)</span>
+                              )}
+                              <button
+                                onClick={() => toggleSaveCollege(college.id)}
+                                className="text-gray-300 hover:text-indigo-500 transition-colors mt-0.5"
+                              >
+                                {savedColleges.includes(String(college.id))
+                                  ? <BookmarkCheck className="w-4 h-4 text-indigo-500" />
+                                  : <Bookmark className="w-4 h-4" />}
                               </button>
                             </div>
                           </div>
 
-                          {/* Stats Grid - Enhanced */}
-                          <div className="grid grid-cols-2 gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
+                          {/* ─── DEPARTMENT CHIPS ─── */}
+                          {depts.length > 0 && (
                             <div>
-                              <p className="text-xs text-gray-500 mb-1">Fees</p>
-                              <p className="font-semibold text-gray-900 text-sm truncate" title={college.fees}>{college.fees}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs text-blue-600 mb-1">Avg Package</p>
-                              <p className="font-semibold text-blue-700 text-sm">
-                                {placement.average_package || placement.avg || 'N/A'}
-                              </p>
-                            </div>
-                            {placement.highest_package && (
-                              <div className="col-span-2 border-t pt-2 mt-1">
-                                <div className="flex justify-between text-xs">
-                                  <span className="text-gray-500">Highest: <span className="font-medium text-gray-900">{placement.highest_package}</span></span>
-                                  <span className="text-green-600 font-medium">{placement.placement_percentage} Placed</span>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Departments Tags */}
-                          <div className="flex-1">
-                            {depts.length > 0 ? (
+                              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Department</p>
                               <div className="flex flex-wrap gap-1.5">
-                                {depts.slice(0, 3).map((d: string, i: number) => (
-                                  <Badge key={i} variant="secondary" className="bg-gray-100 text-gray-700 font-normal text-xs hover:bg-gray-200">
+                                {depts.slice(0, 6).map((d: string, i: number) => (
+                                  <Badge key={i} variant="secondary"
+                                    className="bg-indigo-50 text-indigo-700 border border-indigo-100 font-medium text-[10px] hover:bg-indigo-100 transition-colors px-2 py-0.5 rounded-full">
                                     {d}
                                   </Badge>
                                 ))}
-                                {depts.length > 3 && <span className="text-xs text-gray-400 self-center">+{depts.length - 3}</span>}
+                                {depts.length > 6 && (
+                                  <span className="text-[10px] text-gray-400 self-center">+{depts.length - 6} more</span>
+                                )}
                               </div>
-                            ) : (
-                              <div className="h-6"></div>
-                            )}
+                            </div>
+                          )}
+
+                          {/* ─── FEES + ACCOMMODATION ─── */}
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="flex items-start gap-2 bg-gray-50 rounded-xl p-2.5 border border-gray-100">
+                              <TrendingUp className="w-3.5 h-3.5 text-indigo-500 mt-0.5 shrink-0" />
+                              <div className="min-w-0">
+                                <p className="text-[10px] text-gray-400 font-medium">Fees</p>
+                                <p className="text-xs font-bold text-gray-800 truncate">{college.fees || 'N/A'}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 bg-gray-50 rounded-xl p-2.5 border border-gray-100">
+                              <Building2 className="w-3.5 h-3.5 text-purple-500 mt-0.5 shrink-0" />
+                              <div className="min-w-0">
+                                <p className="text-[10px] text-gray-400 font-medium">Accommodation</p>
+                                <p className="text-xs font-bold text-gray-800 truncate">{(college as any).accommodation || 'Available'}</p>
+                              </div>
+                            </div>
                           </div>
 
-                          {/* Reviews Snippet (New) */}
-                          {(() => {
-                            const reviews = parseJSON(college.reviews, []);
-                            if (reviews.length > 0) {
-                              return (
-                                <div className="text-xs text-gray-500 italic border-l-2 border-gray-200 pl-2 line-clamp-2">
-                                  "{reviews[0].comment}" <span className="not-italic font-medium">- {reviews[0].user}</span>
+                          {/* ─── PLACEMENT STATS ─── */}
+                          {(placement.average_package || placement.highest_package || placement.placement_percentage) && (
+                            <div className="rounded-xl border border-gray-100 overflow-hidden">
+                              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-3 py-1.5">
+                                <p className="text-[10px] font-bold text-white uppercase tracking-wider flex items-center gap-1">
+                                  <TrendingUp className="w-3 h-3" /> Placement Stats
+                                </p>
+                              </div>
+                              <div className="grid grid-cols-3 divide-x divide-gray-100 bg-white">
+                                <div className="px-3 py-2 text-center">
+                                  <p className="text-xs font-bold text-indigo-700">{placement.average_package || 'N/A'}</p>
+                                  <p className="text-[10px] text-gray-400 mt-0.5">Avg Pkg</p>
                                 </div>
-                              );
-                            }
-                            return null;
-                          })()}
+                                <div className="px-3 py-2 text-center">
+                                  <p className="text-xs font-bold text-purple-700">{placement.highest_package || 'N/A'}</p>
+                                  <p className="text-[10px] text-gray-400 mt-0.5">Highest</p>
+                                </div>
+                                <div className="px-3 py-2 text-center">
+                                  <p className="text-xs font-bold text-green-600">{placement.placement_percentage || 'N/A'}</p>
+                                  <p className="text-[10px] text-gray-400 mt-0.5">Placed</p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
 
+                          {/* ─── STUDENT REVIEW QUOTE ─── */}
+                          {reviews.length > 0 && (
+                            <div className="flex items-start gap-2 text-[11px] text-gray-500 italic bg-gray-50 rounded-xl p-2.5 border-l-3 border-indigo-300">
+                              <span className="text-indigo-300 text-lg leading-none font-serif mt-[-4px]">"</span>
+                              <span className="flex-1">
+                                {reviews[0].comment}
+                                <span className="not-italic font-semibold text-gray-600 ml-1">- {reviews[0].user}</span>
+                              </span>
+                            </div>
+                          )}
 
-                          {/* Action */}
-                          <Button asChild className="w-full gradient-primary text-white shadow-md hover:shadow-lg transition-all mt-auto">
-                            <a href={college.website} target="_blank" rel="noopener noreferrer">Visit Official Website</a>
-                          </Button>
+                          {/* ─── ACTION BUTTONS ─── */}
+                          <div className="grid grid-cols-2 gap-2 mt-auto pt-1">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="w-full border-indigo-200 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-400 transition-all text-xs font-semibold rounded-xl"
+                              onClick={() => window.open(college.details_link || college.website, '_blank')}
+                            >
+                              <ExternalLink className="w-3 h-3 mr-1.5" />
+                              View Details
+                            </Button>
+                            <Button
+                              size="sm"
+                              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-semibold rounded-xl shadow-md hover:shadow-lg transition-all"
+                              onClick={() => window.open(college.website, '_blank')}
+                            >
+                              Apply Now
+                            </Button>
+                          </div>
+
                         </div>
                       </Card>
                     );

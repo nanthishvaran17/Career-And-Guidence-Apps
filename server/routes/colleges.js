@@ -76,7 +76,9 @@ router.get('/', (req, res) => {
             departments: safeParseJSON(college.departments, []),
             placement_stats: safeParseJSON(college.placement_stats, {}),
             infrastructure: safeParseJSON(college.infrastructure, []),
-            reviews: safeParseJSON(college.reviews, [])
+            reviews: safeParseJSON(college.reviews, []),
+            accreditations: safeParseJSON(college.accreditations, []),
+            courses_offered: safeParseJSON(college.courses_offered, [])
         }));
 
         // Always send what we found
