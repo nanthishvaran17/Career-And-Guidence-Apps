@@ -135,8 +135,7 @@ export function AptitudeTest() {
             <Layout>
                 <div className="max-w-2xl mx-auto p-6">
                     {/* Hero Card */}
-                    <div className="relative overflow-hidden rounded-2xl mb-6"
-                        style={{ background: 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%)' }}>
+                    <div className="relative overflow-hidden rounded-2xl mb-6 gradient-primary">
                         <div className="absolute inset-0 opacity-10"
                             style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
                         <div className="relative p-8 text-white text-center">
@@ -188,40 +187,11 @@ export function AptitudeTest() {
                         </ul>
                     </Card>
 
-                    {/* Start Button — Vibrant Blue */}
+                    {/* Start Button */}
                     <button
                         onClick={startTest}
                         disabled={loading}
-                        style={{
-                            width: '100%',
-                            padding: '1rem 2rem',
-                            background: loading
-                                ? '#93c5fd'
-                                : 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%)',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '12px',
-                            fontSize: '1.1rem',
-                            fontWeight: '700',
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '10px',
-                            boxShadow: '0 4px 20px rgba(37, 99, 235, 0.4)',
-                            transition: 'transform 0.15s, box-shadow 0.15s',
-                            letterSpacing: '0.02em',
-                        }}
-                        onMouseEnter={e => {
-                            if (!loading) {
-                                (e.target as HTMLElement).style.transform = 'translateY(-2px)';
-                                (e.target as HTMLElement).style.boxShadow = '0 8px 28px rgba(37, 99, 235, 0.5)';
-                            }
-                        }}
-                        onMouseLeave={e => {
-                            (e.target as HTMLElement).style.transform = 'translateY(0)';
-                            (e.target as HTMLElement).style.boxShadow = '0 4px 20px rgba(37, 99, 235, 0.4)';
-                        }}
+                        className={`w-full py-4 rounded-xl text-lg font-bold text-white flex items-center justify-center gap-2 transition-all duration-200 shadow-lg ${loading ? 'opacity-50 cursor-not-allowed gradient-primary' : 'gradient-primary hover:opacity-90 hover:-translate-y-0.5 hover:shadow-xl'}`}
                     >
                         {loading ? (
                             <>
@@ -243,16 +213,15 @@ export function AptitudeTest() {
     // ─── FINISHED SCREEN ─────────────────────────────────────────────────────────
     if (finished) {
         const userEmail = localStorage.getItem('userEmail') || '';
-        const perfColor = report
-            ? report.score >= 80 ? '#059669' : report.score >= 50 ? '#d97706' : '#dc2626'
-            : '#2563eb';
+        const perfClass = report
+            ? report.score >= 80 ? 'bg-emerald-500' : report.score >= 50 ? 'bg-amber-500' : 'bg-red-500'
+            : 'bg-blue-600';
 
         return (
             <Layout>
                 <div className="max-w-xl mx-auto p-4 md:p-6">
                     {/* Score Hero Banner */}
-                    <div className="relative overflow-hidden rounded-2xl p-8 text-center mb-5"
-                        style={{ background: `linear-gradient(135deg, ${perfColor} 0%, ${perfColor}cc 100%)` }}>
+                    <div className={`relative overflow-hidden rounded-2xl p-8 text-center mb-5 ${perfClass}`}>
                         <CheckCircle className="w-16 h-16 text-white mx-auto mb-3" />
                         <h1 className="text-3xl font-bold text-white mb-1">Test Completed!</h1>
                         {report ? (
@@ -309,13 +278,7 @@ export function AptitudeTest() {
                     {/* Go to Dashboard */}
                     <button
                         onClick={() => navigate('/dashboard')}
-                        style={{
-                            width: '100%', padding: '14px', borderRadius: '12px',
-                            background: 'linear-gradient(135deg, #1d4ed8, #2563eb)',
-                            color: 'white', border: 'none', fontWeight: '700',
-                            fontSize: '1rem', cursor: 'pointer',
-                            boxShadow: '0 4px 15px rgba(37,99,235,0.35)',
-                        }}
+                        className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-base transition-colors shadow-md"
                     >
                         Go to Dashboard
                     </button>
@@ -385,43 +348,12 @@ export function AptitudeTest() {
                                     key={idx}
                                     type="button"
                                     onClick={() => selectAnswer(option)}
-                                    style={{
-                                        width: '100%',
-                                        textAlign: 'left',
-                                        padding: '14px 18px',
-                                        borderRadius: '10px',
-                                        border: isSelected ? '2px solid #2563eb' : '2px solid #e5e7eb',
-                                        background: isSelected
-                                            ? 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)'
-                                            : 'white',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '12px',
-                                        transition: 'all 0.15s ease',
-                                        boxShadow: isSelected ? '0 0 0 3px rgba(37,99,235,0.15)' : '0 1px 3px rgba(0,0,0,0.06)',
-                                        color: isSelected ? '#1d4ed8' : '#374151',
-                                        fontWeight: isSelected ? '600' : '400',
-                                        fontSize: '0.95rem',
-                                        position: 'relative',
-                                        zIndex: 1,
-                                    }}
+                                    className={`w-full text-left px-5 py-3.5 rounded-xl border-2 flex items-center gap-3 transition-all duration-150 ${isSelected ? 'border-blue-600 bg-blue-50 text-blue-800 font-semibold shadow-[0_0_0_3px_rgba(37,99,235,0.15)]' : 'border-gray-200 bg-white text-gray-700 hover:border-blue-200 hover:bg-blue-50/30'}`}
                                 >
                                     {/* Option circle indicator */}
-                                    <span style={{
-                                        width: '22px',
-                                        height: '22px',
-                                        borderRadius: '50%',
-                                        border: isSelected ? '2px solid #2563eb' : '2px solid #d1d5db',
-                                        background: isSelected ? '#2563eb' : 'white',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        flexShrink: 0,
-                                        transition: 'all 0.15s',
-                                    }}>
+                                    <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'border-blue-600 bg-blue-600' : 'border-gray-300 bg-white'}`}>
                                         {isSelected && (
-                                            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'white', display: 'block' }} />
+                                            <span className="w-2 h-2 rounded-full bg-white block" />
                                         )}
                                     </span>
                                     <span>{option}</span>
@@ -470,15 +402,14 @@ export function AptitudeTest() {
                         <Button
                             onClick={handleSubmit}
                             disabled={submitting}
-                            style={{ background: 'linear-gradient(135deg, #059669, #10b981)', color: 'white', border: 'none', minWidth: '110px' }}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white min-w-[110px]"
                         >
                             {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Submit Test ✓'}
                         </Button>
                     ) : (
                         <Button
                             onClick={nextQuestion}
-                            style={{ background: 'linear-gradient(135deg, #1d4ed8, #2563eb)', color: 'white', border: 'none' }}
-                            className="flex items-center gap-1"
+                            className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-1"
                         >
                             Next <ChevronRight className="w-4 h-4" />
                         </Button>

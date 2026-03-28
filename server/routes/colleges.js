@@ -56,8 +56,12 @@ router.get('/', (req, res) => {
         }
     }
 
-    // Add ORDER BY and LIMIT for performance
-    query += " ORDER BY rating DESC, name ASC LIMIT 100";
+    // Add ORDER BY: accredited colleges first, then by rating
+    query += ` ORDER BY 
+      CASE WHEN ranking IS NOT NULL AND ranking != '' THEN 0 ELSE 1 END ASC,
+      rating DESC, 
+      name ASC 
+    LIMIT 100`;
 
     db.all(query, params, (err, rows) => {
         if (err) {

@@ -142,7 +142,7 @@ const otpStore = new Map();
 
 // 1. Initial Login Check: Verify Password & Send OTP
 router.post('/login-init', (req, res) => {
-    const { password } = req.body;
+    const password = req.body.password ? req.body.password.trim() : '';
     const email = req.body.email ? req.body.email.trim().toLowerCase() : '';
 
     console.log(`[Login] Attempt for email: '${email}'`);
@@ -154,6 +154,7 @@ router.post('/login-init', (req, res) => {
         if (row) {
             // In a real app, use bcrypt.compare here
             if (row.password !== password) {
+                console.log(`[Login] Invalid credentials for email: '${email}'. Required: '${row.password}', provided: '${password}'`);
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
 

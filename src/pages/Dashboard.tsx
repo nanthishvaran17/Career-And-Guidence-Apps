@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/ui/card';
-import { Button } from '../components/ui/button';
 import {
   Compass,
   GraduationCap,
@@ -14,48 +13,27 @@ import {
   Star,
   Award,
   Target,
-  ArrowRightLeft
+  ArrowRightLeft,
+  MapPin,
+  Zap
 } from 'lucide-react';
 import { careers } from '../data/mockData';
 
 export function Dashboard() {
   const navigate = useNavigate();
+
   const stats = [
-    { label: 'Careers Explored', value: '12', icon: Compass, color: 'blue' },
-    { label: 'Jobs Saved', value: '8', icon: Bookmark, color: 'green' },
-    { label: 'Active Alerts', value: '5', icon: Bell, color: 'purple' },
-    { label: 'Profile Match', value: '85%', icon: Target, color: 'orange' },
+    { label: 'Careers Explored', value: '12', icon: Compass, iconColor: 'text-blue-600', iconBg: 'bg-blue-100', trend: 'text-green-500' },
+    { label: 'Jobs Saved', value: '8', icon: Bookmark, iconColor: 'text-green-600', iconBg: 'bg-green-100', trend: 'text-green-500' },
+    { label: 'Active Alerts', value: '5', icon: Bell, iconColor: 'text-purple-600', iconBg: 'bg-purple-100', trend: 'text-green-500' },
+    { label: 'Profile Match', value: '85%', icon: Target, iconColor: 'text-orange-600', iconBg: 'bg-orange-100', trend: 'text-green-500' },
   ];
 
   const quickActions = [
-    {
-      title: 'Career Paths',
-      description: 'Discover careers that match your profile',
-      icon: Compass,
-      href: '/careers',
-      color: 'from-blue-500 to-blue-600'
-    },
-    {
-      title: 'Education Guidance',
-      description: 'Find colleges and scholarships',
-      icon: GraduationCap,
-      href: '/education',
-      color: 'from-green-500 to-green-600'
-    },
-    {
-      title: 'Jobs & Skills',
-      description: 'Browse jobs and skill programs',
-      icon: Briefcase,
-      href: '/jobs',
-      color: 'from-purple-500 to-purple-600'
-    },
-    {
-      title: 'AI Chatbot',
-      description: 'Get instant career guidance',
-      icon: MessageSquare,
-      href: '/chatbot',
-      color: 'from-orange-500 to-orange-600'
-    },
+    { title: 'Career Paths', description: 'Discover careers that match your profile', icon: Compass, href: '/careers', iconColor: 'text-white', iconBg: 'bg-blue-600' },
+    { title: 'Education Guidance', description: 'Find colleges and scholarships', icon: GraduationCap, href: '/education', iconColor: 'text-white', iconBg: 'bg-emerald-600' },
+    { title: 'Jobs & Skills', description: 'Browse jobs and skill programs', icon: Briefcase, href: '/jobs', iconColor: 'text-white', iconBg: 'bg-purple-600' },
+    { title: 'AI Chatbot', description: 'Get instant career guidance', icon: MessageSquare, href: '/chatbot', iconColor: 'text-white', iconBg: 'bg-orange-600' },
   ];
 
   const recentActivity = [
@@ -65,115 +43,100 @@ export function Dashboard() {
     { action: 'New recommendation', item: 'Data Scientist path', time: '2 days ago', icon: TrendingUp },
   ];
 
+  const exploreMore = [
+    { title: 'Career Path', subtitle: 'Discover your ideal role', icon: Compass, iconColor: 'text-blue-600', iconBg: 'bg-blue-50', route: '/careers' },
+    { title: 'Education', subtitle: 'Find colleges & streams', icon: GraduationCap, iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50', route: '/education' },
+    { title: 'Compare & Decide', subtitle: 'Colleges, Schools, Jobs', icon: ArrowRightLeft, iconColor: 'text-purple-600', iconBg: 'bg-purple-50', route: '/compare' },
+  ];
+
   const topRecommendations = careers.slice(0, 3);
 
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Welcome Section */}
-        <div className="rounded-xl p-6 bg-gradient-to-r from-blue-500 to-green-500 text-white">
-          <h2 className="text-white mb-2">Welcome back, Student! 👋</h2>
-          <p className="text-blue-100">
+
+        {/* ── WELCOME BANNER ── */}
+        <div className="rounded-xl p-6 bg-gradient-to-r from-blue-500 to-green-500 text-white mb-6">
+          <h2 className="text-white mb-2 font-bold text-2xl">Welcome back, Student! 👋</h2>
+          <p className="text-blue-100 font-medium">
             You're on track to achieving your career goals. Let's continue your journey!
           </p>
         </div>
 
-        {/* Stats Cards */}
+        {/* ── STATS CARDS ── */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
-            <Card key={index} className="p-4 hover:shadow-lg transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className={`w-10 h-10 rounded-lg bg-${stat.color}-100 flex items-center justify-center`}>
-                  <stat.icon className={`w-5 h-5 text-${stat.color}-600`} />
+            <Card key={index} className="p-4 hover:shadow-md transition-shadow border border-gray-100 bg-white">
+              <div className="flex justify-between items-start mb-2">
+                <div className={`p-2 rounded-lg ${stat.iconBg}`}>
+                  <stat.icon className={`w-5 h-5 ${stat.iconColor}`} />
                 </div>
-                <TrendingUp className="w-4 h-4 text-green-500" />
+                <TrendingUp className={`w-4 h-4 ${stat.trend}`} />
               </div>
-              <div className="text-2xl mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
+              <p className="text-2xl font-bold text-gray-900 mt-4 leading-none">{stat.value}</p>
+              <p className="text-sm text-gray-500 mt-1 font-medium">{stat.label}</p>
             </Card>
           ))}
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Quick Actions */}
-          <div className="lg:col-span-2 space-y-4">
-            <h3>Quick Actions</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {quickActions.map((action, index) => (
-                <Link key={index} to={action.href}>
-                  <Card className="p-5 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer h-full">
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${action.color} flex items-center justify-center mb-4`}>
-                      <action.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h4 className="mb-2">{action.title}</h4>
-                    <p className="text-sm text-gray-600 mb-3">{action.description}</p>
-                    <div className="flex items-center text-sm text-blue-600">
-                      Explore <ArrowRight className="ml-1 w-4 h-4" />
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
+          <div className="lg:col-span-2 space-y-6">
 
-            {/* New Dashboard Cards */}
+            {/* ── QUICK ACTIONS ── */}
             <div>
-              <h3 className="mb-4">Explore More</h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <Card className="p-6 border-l-4 border-indigo-500 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate('/careers')}>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-indigo-100 rounded-lg text-indigo-600">
-                      <Compass className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Career Path</h3>
-                      <p className="text-sm text-gray-500">Discover your ideal role</p>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card className="p-6 border-l-4 border-green-500 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate('/education')}>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-green-100 rounded-lg text-green-600">
-                      <GraduationCap className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Education</h3>
-                      <p className="text-sm text-gray-500">Find colleges & streams</p>
-                    </div>
-                  </div>
-                </Card>
-
-                <Card className="p-6 border-l-4 border-purple-500 hover:shadow-lg transition-all cursor-pointer" onClick={() => navigate('/compare')}>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-purple-100 rounded-lg text-purple-600">
-                      <ArrowRightLeft className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Compare & Decide</h3>
-                      <p className="text-sm text-gray-500">Colleges, Schools, Jobs</p>
-                    </div>
-                  </div>
-                </Card>
+              <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {quickActions.map((action, index) => (
+                  <Link key={index} to={action.href}>
+                    <Card className="p-4 hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer bg-white border border-gray-100 h-full flex flex-col justify-between">
+                      <div>
+                        <div className={`w-10 h-10 rounded-xl mb-4 flex items-center justify-center ${action.iconBg}`}>
+                          <action.icon className={`w-5 h-5 ${action.iconColor}`} />
+                        </div>
+                        <h4 className="font-bold text-gray-900 text-lg mb-1">{action.title}</h4>
+                        <p className="text-sm text-gray-500 mb-4">{action.description}</p>
+                      </div>
+                      <div className="flex items-center justify-between text-blue-600 font-medium text-sm mt-auto">
+                        <span>Explore Now</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </Card>
+                  </Link>
+                ))}
               </div>
             </div>
 
-            {/* Recent Activity */}
+            {/* ── EXPLORE MORE ── */}
             <div>
-              <h3 className="mb-4">Recent Activity</h3>
-              <Card className="divide-y">
+              <h3 className="text-lg font-bold text-gray-900 mb-4">Explore More</h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                {exploreMore.map((item, i) => (
+                  <Card key={i} className="p-4 hover:shadow-md transition-all cursor-pointer hover:-translate-y-0.5 bg-white border border-gray-100" onClick={() => navigate(item.route)}>
+                    <div className={`w-10 h-10 rounded-xl mb-3 flex items-center justify-center ${item.iconBg}`}>
+                      <item.icon className={`w-5 h-5 ${item.iconColor}`} />
+                    </div>
+                    <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
+                    <p className="text-xs text-gray-500">{item.subtitle}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* ── RECENT ACTIVITY ── */}
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 mb-4">Recent Activity</h3>
+              <Card className="bg-white border border-gray-100 overflow-hidden">
                 {recentActivity.map((activity, index) => (
-                  <div key={index} className="p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                        <activity.icon className="w-4 h-4 text-blue-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm">
-                          <span className="text-gray-600">{activity.action}:</span>{' '}
-                          <span className="text-gray-900">{activity.item}</span>
-                        </p>
-                        <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
-                      </div>
+                  <div key={index} className="flex items-start gap-4 p-4 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
+                      <activity.icon className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-900">
+                        <span className="text-gray-500">{activity.action}:</span>{' '}
+                        <span className="font-medium">{activity.item}</span>
+                      </p>
+                      <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
                     </div>
                   </div>
                 ))}
@@ -181,31 +144,29 @@ export function Dashboard() {
             </div>
           </div>
 
-          {/* Recommended Careers Sidebar */}
+          {/* ── TOP RECOMMENDATIONS SIDEBAR ── */}
           <div className="space-y-4">
-            <h3>Top Recommendations</h3>
-            <div className="space-y-3">
+            <h3 className="text-lg font-bold text-gray-900">Top Recommendations</h3>
+            <div className="space-y-4">
               {topRecommendations.map((career) => (
-                <Card key={career.id} className="p-4 hover:shadow-md transition-shadow">
-                  <div className="flex items-start justify-between mb-2">
-                    <h5 className="flex-1">{career.title}</h5>
-                    <div className="flex items-center gap-1 text-sm text-green-600">
-                      <Star className="w-4 h-4 fill-green-600" />
-                      {career.matchPercentage}%
+                <Card key={career.id} className="p-4 hover:shadow-md transition-shadow bg-white border border-gray-100">
+                  <div className="flex justify-between items-start mb-2">
+                    <h5 className="font-bold text-gray-900">{career.title}</h5>
+                    <div className="flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
+                      <Star className="w-3.5 h-3.5 fill-emerald-600" />
+                      <span className="text-xs font-bold">{career.matchPercentage}%</span>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-3">{career.salaryRange}</p>
+                  <p className="text-sm text-gray-500 mb-4">{career.salaryRange}</p>
                   <Link to="/careers">
-                    <Button variant="outline" size="sm" className="w-full">
+                    <button className="w-full text-sm font-semibold text-gray-900 border border-gray-200 hover:bg-gray-50 rounded-lg py-2 transition-colors">
                       View Details
-                    </Button>
+                    </button>
                   </Link>
                 </Card>
               ))}
-              <Link to="/careers">
-                <Button variant="ghost" className="w-full text-blue-600">
-                  View All Careers <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+              <Link to="/careers" className="block text-center text-sm font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg py-3 mt-4 transition-colors">
+                View All Careers
               </Link>
             </div>
           </div>

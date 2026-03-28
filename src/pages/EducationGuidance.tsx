@@ -359,7 +359,7 @@ export function EducationGuidance() {
                     return (
                       <Card key={college.id} className="group hover:shadow-2xl transition-all duration-300 border border-gray-200 hover:border-indigo-300 overflow-hidden flex flex-col h-full rounded-2xl">
                         {/* Card Top Accent Bar */}
-                        <div className="h-1 w-full bg-gradient-to-r from-indigo-500 to-purple-600" />
+                        <div className="h-1 w-full gradient-primary" />
 
                         <div className="p-5 flex flex-col h-full gap-3">
 
@@ -440,7 +440,7 @@ export function EducationGuidance() {
                           {/* ─── PLACEMENT STATS ─── */}
                           {(placement.average_package || placement.highest_package || placement.placement_percentage) && (
                             <div className="rounded-xl border border-gray-100 overflow-hidden">
-                              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-3 py-1.5">
+                              <div className="gradient-primary px-3 py-1.5">
                                 <p className="text-[10px] font-bold text-white uppercase tracking-wider flex items-center gap-1">
                                   <TrendingUp className="w-3 h-3" /> Placement Stats
                                 </p>
@@ -486,7 +486,7 @@ export function EducationGuidance() {
                             </Button>
                             <Button
                               size="sm"
-                              className="w-full bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl shadow-md hover:shadow-lg transition-all border-0"
+                              className="w-full gradient-primary text-white text-xs font-bold rounded-xl shadow-md hover:shadow-lg transition-all border-0"
                               onClick={() => window.open(college.website, '_blank')}
                             >
                               Apply Now
@@ -505,30 +505,47 @@ export function EducationGuidance() {
             <TabsContent value="scholarships">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {scholarships.map(s => (
-                  <Card key={s.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200 overflow-hidden flex flex-col h-full">
-                    <div className="p-5 flex flex-col h-full">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="p-2 bg-yellow-50 rounded-lg text-yellow-600">
-                          <Award className="w-6 h-6" />
+                  <Card
+                    key={s.id}
+                    className="group hover:shadow-xl transition-all duration-300 flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-200"
+                  >
+                    {/* HEADER */}
+                    <div className="bg-purple-50 border-b border-purple-100 px-4 pt-4 pb-3">
+                      <div className="flex justify-between items-start gap-2">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <Award className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                            <span className="text-[10px] font-bold text-purple-600 uppercase tracking-widest">Scholarship</span>
+                          </div>
+                          <h4 className="text-base font-extrabold text-purple-900 leading-snug m-0">
+                            {s.title}
+                          </h4>
+                          <p className="text-[11px] text-purple-700 mt-0.5 mb-0">{s.provider}</p>
                         </div>
-                        {s.deadline && <Badge variant="outline" className="text-xs border-red-200 text-red-600 bg-red-50">Deadline: {s.deadline}</Badge>}
+                        {s.deadline && (
+                          <div className="text-right shrink-0">
+                            <span className="block text-[9px] font-bold text-purple-500 mb-0.5">Deadline</span>
+                            <span className="text-[10px] font-extrabold text-red-500">{s.deadline}</span>
+                          </div>
+                        )}
                       </div>
-
-                      <div className="mb-4 flex-1">
-                        <h4 className="font-bold text-lg text-gray-900 group-hover:text-blue-600 transition-colors mb-1">{s.title}</h4>
-                        <p className="text-sm text-gray-500">{s.provider}</p>
+                    </div>
+                    {/* BODY */}
+                    <div className="p-4 flex flex-col gap-3 flex-1">
+                      {/* Amount Box */}
+                      <div className="bg-purple-100 rounded-xl p-3">
+                        <p className="text-[10px] font-bold text-purple-700 uppercase tracking-widest m-0">Scholarship Amount</p>
+                        <p className="text-xl font-black text-purple-900 m-0 mt-0.5">{s.amount}</p>
                       </div>
-
-                      <div className="space-y-4 mt-auto">
-                        <div className="bg-green-50 p-3 rounded-lg border border-green-100">
-                          <p className="text-xs text-green-600 mb-1 font-medium">Scholarship Amount</p>
-                          <p className="font-bold text-green-700">{s.amount}</p>
-                        </div>
-
-                        <Button asChild className="w-full gradient-primary text-white shadow-sm hover:shadow-md">
-                          <a href={s.link} target="_blank" rel="noopener noreferrer">Apply Now</a>
-                        </Button>
-                      </div>
+                      {/* Apply Button */}
+                      <a
+                        href={s.link || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-full py-2.5 rounded-xl text-xs font-bold text-white gradient-primary hover:opacity-90 transition-opacity shadow-md mt-auto"
+                      >
+                        Apply Now
+                      </a>
                     </div>
                   </Card>
                 ))}
