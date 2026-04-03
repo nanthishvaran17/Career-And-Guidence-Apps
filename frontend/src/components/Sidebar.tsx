@@ -12,6 +12,7 @@ import {
   KeyRound,
   LogOut,
   Activity,
+  Video,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -24,6 +25,7 @@ const navigation = [
   { name: 'Career Recommendations', href: '/careers', icon: Compass },
   { name: 'Education Guidance', href: '/education', icon: GraduationCap },
   { name: 'Jobs & Skills', href: '/jobs', icon: Briefcase },
+  { name: 'Experts & Podcasts', href: '/experts', icon: Video },
   { name: 'AI Chatbot', href: '/chatbot', icon: MessageSquare },
   { name: 'Notifications', href: '/notifications', icon: Bell },
   { name: 'Profile', href: '/profile-setup', icon: User },

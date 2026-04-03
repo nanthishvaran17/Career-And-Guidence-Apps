@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard';
 import { CareerRecommendations } from './pages/CareerRecommendations';
 import { EducationGuidance } from './pages/EducationGuidance';
 import { JobsSkills } from './pages/JobsSkills';
+import { Experts } from './pages/Experts';
 import { AIChatbot } from './pages/AIChatbot';
 import { Notifications } from './pages/Notifications';
 import { AptitudeTest } from './pages/AptitudeTest';
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/career-simulation" element={<CareerSimulation />} />
           <Route path="/roadmap" element={<Roadmap />} />
           <Route path="/jobs" element={<JobsSkills />} />
+          <Route path="/experts" element={<Experts />} />
           <Route path="/chatbot" element={<AIChatbot />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/aptitude-test" element={<AptitudeTest />} />
