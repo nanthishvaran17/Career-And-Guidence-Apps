@@ -170,14 +170,13 @@ export function AIChatbot() {
 
       const data = await response.json();
 
-      const botResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        text: data.reply || "Sorry, I couldn't process that.",
-        sender: 'bot',
-        timestamp: new Date()
-      };
-
       setMessages(prev => {
+        const botResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          text: data.reply || "Sorry, I couldn't process that.",
+          sender: 'bot',
+          timestamp: new Date()
+        };
         const newHistory = [...prev, botResponse];
         if (userId) localStorage.setItem(`chat_history_${userId}`, JSON.stringify(newHistory));
         return newHistory;

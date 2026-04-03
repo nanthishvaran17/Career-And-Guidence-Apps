@@ -141,7 +141,7 @@ export function Experts() {
                 <div className="pt-8">
                   <Button 
                     asChild
-                    className="w-full h-15 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black transition-all shadow-xl shadow-blue-100 hover:shadow-indigo-200 text-base gap-3 border-b-4 border-indigo-800 active:border-b-0 active:translate-y-1"
+                    className="w-full h-15 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black transition-all shadow-xl shadow-indigo-100 hover:shadow-indigo-200 text-base gap-3 border-b-4 border-indigo-800 active:border-b-0 active:translate-y-1"
                   >
                     <a href={expert.videoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                       Watch Career Podcast
