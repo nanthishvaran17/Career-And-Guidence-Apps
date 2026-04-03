@@ -157,12 +157,9 @@ export function GlobalSearch() {
   return (
     <div ref={wrapperRef} className="relative w-full">
       <form onSubmit={handleSubmit} className="relative group">
-        <button 
-          type="submit"
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors z-20"
-        >
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center pointer-events-none z-20">
           <Search className="w-5 h-5 text-gray-500 group-focus-within:text-blue-600 transition-colors" />
-        </button>
+        </div>
         <input
           type="text"
           value={query}
@@ -170,7 +167,8 @@ export function GlobalSearch() {
           onKeyDown={handleKey}
           onFocus={() => { if (results.length > 0) setOpen(true); }}
           placeholder="Explore careers, jobs, skills..."
-          className="w-full h-12 pl-16 pr-10 rounded-xl border border-gray-200 bg-gray-50 text-base focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white transition-all shadow-sm hover:shadow-md placeholder:text-gray-400"
+          className="w-full h-12 pl-16 pr-10 rounded-xl border border-gray-200 bg-gray-50 text-base focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white transition-all shadow-sm hover:shadow-md placeholder:text-gray-400 font-medium"
+          style={{ paddingLeft: '64px' }}
         />
         {query && (
           <button 

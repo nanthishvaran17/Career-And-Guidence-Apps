@@ -55,13 +55,14 @@ export function Experts() {
         {/* CONTROLS: SEARCH & FILTERS */}
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-[24px] shadow-sm border border-gray-100">
           <div className="relative w-full md:w-96 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-600 transition-colors" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-600 transition-colors z-10" />
             <Input
               type="text"
               placeholder="Search experts, roles, or specialties..."
-              className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-100 focus:bg-white transition-all shadow-inner"
+              className="pl-14 h-12 rounded-xl bg-gray-50 border-gray-100 focus:bg-white transition-all shadow-inner font-medium"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ paddingLeft: '56px' }}
             />
           </div>
           
