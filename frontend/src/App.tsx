@@ -15,6 +15,7 @@ import { ComparisonTool } from './pages/ComparisonTool';
 import { ForgotPassword } from './pages/ForgotPassword';
 import { CollegeExpectation } from './pages/CollegeExpectation';
 import { ChangePassword } from './pages/ChangePassword';
+import { GithubCallback } from './pages/GithubCallback';
 import { ActivityLog } from './pages/ActivityLog';
 import { Roadmap } from './pages/Roadmap';
 import { AdvisoryDashboard } from './pages/AdvisoryDashboard';
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/auth/github/callback" element={<GithubCallback />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/profile-setup" element={<ProfileSetup />} />
           <Route path="/dashboard" element={<Dashboard />} />

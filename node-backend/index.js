@@ -29,6 +29,7 @@ const internshipRoutes = require('./routes/internships');
 const collegeRoutes = require('./routes/colleges');
 const chatbotRoutes = require('./routes/chatbot'); // AI Chatbot Route
 const userRoutes = require('./routes/users'); // User Profile Route
+const authRoutes = require('./routes/auth'); // Social Auth Route
 
 app.use('/api/recommendations', recommendationRoutes);
 app.use('/api/govt-jobs', govtJobRoutes);
@@ -37,6 +38,7 @@ app.use('/api/internships', internshipRoutes);
 app.use('/api/colleges', collegeRoutes);
 app.use('/api/chat', chatbotRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 const skillsRoutes = require('./routes/skills');
 app.use('/api/skills', skillsRoutes);
 const aptitudeRoutes = require('./routes/aptitude');
