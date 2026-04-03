@@ -13,7 +13,8 @@ import {
   ExternalLink,
   Award,
   BookOpen,
-  TrendingUp
+  TrendingUp,
+  ShieldCheck
 } from 'lucide-react';
 import { EXPERTS, Expert } from '../data/expertsData';
 
@@ -111,8 +112,9 @@ export function Experts() {
               <div className="p-6 space-y-4">
                 <div className="flex justify-between items-start gap-4">
                   <div className="space-y-1">
-                    <h3 className="text-xl font-black text-gray-900 tracking-tight group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-xl font-black text-gray-900 tracking-tight group-hover:text-indigo-600 transition-colors flex items-center gap-2">
                       {expert.name}
+                      <ShieldCheck className="w-4 h-4 text-blue-500 fill-blue-50" />
                     </h3>
                     <p className="text-indigo-600 text-xs font-black uppercase tracking-widest flex items-center gap-1.5">
                       <Award className="w-3.5 h-3.5" /> {expert.role}
