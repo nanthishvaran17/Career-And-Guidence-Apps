@@ -63,12 +63,25 @@ app.get('/api/health', (req, res) => {
 });
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+const frontendBuildPath = path.resolve(__dirname, '../frontend/build');
+const frontendDistPath = path.resolve(__dirname, '../frontend/dist');
+const finalStaticPath = fs.existsSync(frontendBuildPath) ? frontendBuildPath : frontendDistPath;
+
+console.log(`[Static] Checking for frontend at: ${frontendBuildPath} or ${frontendDistPath}`);
+console.log(`[Static] Selected Path: ${finalStaticPath} (Exists: ${fs.existsSync(finalStaticPath)})`);
+
+app.use(express.static(finalStaticPath));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  const indexPath = path.join(finalStaticPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    console.error(`[Static] FATAL: index.html not found at ${indexPath}`);
+    res.status(404).send("Frontend build not found. Please run 'npm run build' in the frontend folder.");
+  }
 });
 
 // Global Error Handler

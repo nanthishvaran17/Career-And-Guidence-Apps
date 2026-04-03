@@ -19,24 +19,22 @@ const db = new sqlite3.Database(dbPath, (err) => {
     } else {
         console.log('Connected to the SQLite database.');
         
-        // Initialize tables and seed data automatically on live environment
-        const initDB = () => {
+        // Use serialize to ensure tables are created BEFORE seeding
+        db.serialize(() => {
+            console.log("🛠️  Initializing Database Schema...");
             const createTables = require('./schema');
             createTables();
 
-            // Delayed seeding to ensure tables are ready
-            setTimeout(() => {
-                try {
-                    console.log("🌱 Starting Auto-Seeding for Production...");
-                    const seedData = require('./seed');
-                    seedData(db);
-                } catch (e) {
-                    console.error("❌ Auto-Seeding failed:", e);
-                }
-            }, 2000);
-        };
-
-        initDB();
+            // Only seed in production if not already seeded
+            // For hackathon, we always try to seed (INSERT OR IGNORE handles it)
+            console.log("🌱 Starting Auto-Seeding for Production...");
+            try {
+                const seedData = require('./seed');
+                seedData(db);
+            } catch (e) {
+                console.error("❌ Auto-Seeding failed:", e);
+            }
+        });
     }
 });
 

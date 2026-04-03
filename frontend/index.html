@@ -1,15 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Professional Metadata -->
+    <title>TrustPath AI | Career & Education Advisory System</title>
+    <meta name="description" content="AI-Powered career guidance, job roadmap, and educational counseling. Helping students find their perfect career path." />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Career & Education Advisor App</title>
-    </head>
+    <!-- Open Graph / Social Sharing Previews (WhatsApp/LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TrustPath AI - My Career Advisor" />
+    <meta property="og:description" content="Get your personalized career roadmap and expert guidance instantly." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop" />
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
+    <style>
+      /* Professional Initial Loading State */
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        background: #f8fafc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #e2e8f0;
+        border-top-color: #4f46e5;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .loading-text {
+        margin-top: 16px;
+        font-family: system-ui, -apple-system, sans-serif;
+        color: #475569;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="initial-loader">
+      <div class="spinner"></div>
+      <p class="loading-text">TrustPath AI is waking up...</p>
+    </div>
+    
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+      // Remove loader when React is ready
+      window.addEventListener('load', () => {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(() => loader.remove(), 500);
+        }
+      });
+    </script>
+  </body>
+</html>
   

@@ -148,6 +148,21 @@ const createTables = () => {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
+    // Jobs Table (MISSING PREVIOUSLY)
+    db.run(`CREATE TABLE IF NOT EXISTS jobs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      company TEXT,
+      sector TEXT, -- Added to match seed.js:202
+      location TEXT,
+      salary_range TEXT,
+      description TEXT,
+      apply_link TEXT, -- Added to match seed.js:202
+      skills_required TEXT, -- Added as JSON to match seed.js:202
+      job_type TEXT, 
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+
     // Skills Table (Missing previously)
     db.run(`CREATE TABLE IF NOT EXISTS skills (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -155,6 +170,7 @@ const createTables = () => {
       category TEXT,
       description TEXT,
       level TEXT,
+      domain TEXT, -- Added to match seed.js:277
       roadmap TEXT, -- JSON array
       resources TEXT, -- JSON array
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -167,8 +183,26 @@ const createTables = () => {
       company TEXT,
       type TEXT,
       stipend TEXT,
-      location TEXT,
+      duration TEXT, -- Added to match seed.js:256
+      requirements TEXT,
       link TEXT,
+      domain TEXT, -- Added to match seed.js:256
+      mode TEXT, -- Added to match seed.js:256
+      location TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+
+    // Scholarships Table (MISSING PREVIOUSLY)
+    db.run(`CREATE TABLE IF NOT EXISTS scholarships (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      provider TEXT,
+      amount TEXT,
+      eligibility_criteria TEXT, -- Added to match seed.js:224
+      category TEXT, -- Added to match seed.js:224
+      deadline TEXT,
+      link TEXT,
+      location TEXT,
       requirements TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
