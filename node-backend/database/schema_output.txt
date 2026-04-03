@@ -1,0 +1,15 @@
+
+--- jobs ---
+id, title, company, sector, location, salary_range, job_type, description, skills_required, apply_link, posted_date
+
+--- skills ---
+id, name, category, description
+
+--- scholarships ---
+id, name, provider, type, amount, eligibility, state, deadline, link, description
+
+--- internships ---
+id, title, company, type, stipend, duration, location, requirements, link, posted_date
+
+--- govt_jobs ---
+id, title, category, exam_name, eligibility_criteria, description, website, syllabus, exam_pattern, preparation_books, important_dates
