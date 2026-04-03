@@ -71,8 +71,10 @@ export function Experts() {
                 key={dept}
                 variant={activeDept === dept ? 'default' : 'outline'}
                 onClick={() => setActiveDept(dept)}
-                className={`rounded-full px-5 py-1.5 h-auto text-sm font-bold transition-all shadow-sm ${
-                  activeDept === dept ? 'bg-indigo-600 text-white shadow-indigo-200' : 'hover:bg-indigo-50 hover:border-indigo-200'
+                className={`rounded-full px-5 py-2.5 h-auto text-sm font-black transition-all shadow-sm ${
+                  activeDept === dept 
+                    ? 'bg-blue-600 text-white shadow-blue-200 border-blue-600' 
+                    : 'bg-white text-gray-600 border-gray-200 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600'
                 }`}
               >
                 {dept}
@@ -84,59 +86,61 @@ export function Experts() {
         {/* EXPERTS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredExperts.map((expert: Expert) => (
-            <Card key={expert.id} className="group overflow-hidden border border-gray-100 shadow-xl rounded-[32px] bg-white hover:-translate-y-2 transition-all duration-500 relative">
+            <Card key={expert.id} className="group flex flex-col border border-gray-100 shadow-xl rounded-[32px] bg-white hover:-translate-y-2 transition-all duration-500 relative min-h-[480px]">
               
               {/* TOP ACCENT BAR */}
               <div className="h-2 bg-gradient-to-r from-blue-600 to-indigo-600" />
 
               {/* EXPERT DETAILS */}
-              <div className="p-8 space-y-6">
-                <div className="flex justify-between items-start">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-2xl font-black text-gray-900 tracking-tight group-hover:text-indigo-600 transition-colors">
-                        {expert.name}
-                      </h3>
-                      <ShieldCheck className="w-5 h-5 text-blue-500 fill-blue-50" />
+              <div className="p-8 flex-1 flex flex-col justify-between space-y-6">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-start">
+                    <div className="space-y-2 text-left">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-2xl font-black text-gray-900 tracking-tight group-hover:text-blue-600 transition-colors">
+                          {expert.name}
+                        </h3>
+                        <ShieldCheck className="w-5 h-5 text-blue-500 fill-blue-50" />
+                      </div>
+                      <p className="text-indigo-600 font-black text-[11px] uppercase tracking-widest flex items-center gap-1.5 bg-indigo-50 w-fit px-3 py-1 rounded-full">
+                        <Award className="w-4 h-4" /> {expert.role}
+                      </p>
                     </div>
-                    <p className="text-indigo-600 font-black text-xs uppercase tracking-widest flex items-center gap-1.5 bg-indigo-50 w-fit px-3 py-1 rounded-full">
-                      <Award className="w-4 h-4" /> {expert.role}
-                    </p>
+                    <div className="bg-amber-50 rounded-2xl p-2.5 flex flex-col items-center shadow-sm border border-amber-100 min-w-[55px]">
+                      <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      <span className="text-sm font-black text-amber-700">{expert.rating}</span>
+                    </div>
                   </div>
-                  <div className="bg-amber-50 rounded-2xl p-2 flex flex-col items-center shadow-sm border border-amber-100 min-w-[50px]">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <span className="text-sm font-black text-amber-700">{expert.rating}</span>
-                  </div>
-                </div>
 
-                <div className="space-y-4">
-                   <div className="flex items-center justify-between gap-2 border-b border-gray-100 pb-4">
-                      <Badge variant="secondary" className="bg-gray-100 text-gray-600 font-bold border-0 text-xs uppercase px-3 py-1 rounded-lg">
-                        {expert.department}
-                      </Badge>
-                      <div className="flex items-center gap-1.5 text-green-700 bg-green-50 px-3 py-1 rounded-lg border border-green-100">
-                        <TrendingUp className="w-4 h-4" />
-                        <span className="text-xs font-black uppercase tracking-tight">{expert.avgSalary}</span>
-                      </div>
-                   </div>
-
-                   <div className="bg-gray-50/50 rounded-2xl p-5 border border-gray-100">
-                      <div className="flex items-start gap-3">
-                        <BookOpen className="w-5 h-5 text-indigo-500 mt-1" />
-                        <div className="space-y-1.5">
-                          <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">Expert Specialty</p>
-                          <p className="text-base font-bold text-gray-800 leading-snug">
-                            {expert.bestFor}
-                          </p>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between gap-2 border-b border-gray-100 pb-4">
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-600 font-bold border-0 text-[11px] uppercase px-3 py-1 rounded-lg">
+                          {expert.department}
+                        </Badge>
+                        <div className="flex items-center gap-1.5 text-green-700 bg-green-50 px-3 py-1 rounded-lg border border-green-100">
+                          <TrendingUp className="w-4 h-4" />
+                          <span className="text-[11px] font-black uppercase tracking-tight">{expert.avgSalary}</span>
                         </div>
-                      </div>
-                   </div>
+                    </div>
+
+                    <div className="bg-gray-50/50 rounded-2xl p-5 border border-gray-100 text-left">
+                        <div className="flex items-start gap-3">
+                          <BookOpen className="w-5 h-5 text-indigo-500 mt-1" />
+                          <div className="space-y-1.5">
+                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">Expert Specialty</p>
+                            <p className="text-sm font-bold text-gray-800 leading-snug">
+                              {expert.bestFor}
+                            </p>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-4">
                   <Button 
                     asChild
-                    className="w-full h-15 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black transition-all shadow-xl hover:shadow-red-200 text-base gap-3 border-b-4 border-red-800 active:border-b-0 active:translate-y-1"
+                    className="w-full h-14 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black transition-all shadow-xl hover:shadow-red-500/20 text-base gap-3 border-b-4 border-red-800 active:border-b-0 active:translate-y-1"
                   >
                     <a href={expert.videoUrl} target="_blank" rel="noopener noreferrer">
                       Watch Career Podcast
