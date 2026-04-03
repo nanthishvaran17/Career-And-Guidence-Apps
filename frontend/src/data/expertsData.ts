@@ -104,33 +104,26 @@ export const EXPERTS: Expert[] = [
     rating: 4.9,
     avgSalary: "₹15 - 40 LPA"
   },
-  ...Array.from({ length: 42 }).map((_, i) => {
-    const depts = ["Engineering", "Medicine", "Arts", "Business"];
-    const dept = depts[i % depts.length];
-    const roles: Record<string, string> = {
-      Engineering: "Staff Engineer @ Zoho",
-      Medicine: "Specialist Physician",
-      Arts: "UI/UX Design Director",
-      Business: "Investment Banker @ Goldman Sachs"
-    };
-    const salaries: Record<string, string> = {
-      Engineering: "10 - 30 LPA",
-      Medicine: "15 - 45 LPA",
-      Arts: "8 - 25 LPA",
-      Business: "20 - 55 LPA"
-    };
-    
-    return {
-      id: i + 9,
-      name: `Expert ${i + 9}`,
-      role: (roles as any)[dept] || "Industry Expert",
-      department: dept,
-      bestFor: "Strategic Career Growth and Financial Planning",
-      videoUrl: "https://www.youtube.com/watch?v=xvFZjo5PgG0",
-      salaryVideoUrl: "https://www.youtube.com/watch?v=3S0mPdM_p_Y",
-      thumbnail: `https://images.unsplash.com/photo-${1510000000 + i}?auto=format&fit=crop&w=800&q=80`,
-      rating: Number((4.5 + Math.random() * 0.5).toFixed(1)),
-      avgSalary: `₹${(salaries as any)[dept] || "10 - 25 LPA"}`
-    };
-  })
+  {
+    id: 9,
+    name: "Aditi Rao",
+    role: "Digital Marketing Lead @ Meta",
+    department: "Marketing",
+    bestFor: "Mastering Performance Marketing & Brand Strategy",
+    videoUrl: "https://www.youtube.com/watch?v=nu_pCVPKzTk",
+    thumbnail: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    rating: 4.8,
+    avgSalary: "₹10 - 25 LPA"
+  },
+  {
+    id: 10,
+    name: "Karthik S",
+    role: "Senior Corporate Lawyer",
+    department: "Law",
+    bestFor: "Corporate Law Entrance & Career Roadmap",
+    videoUrl: "https://www.youtube.com/watch?v=xvFZjo5PgG0",
+    thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    rating: 4.7,
+    avgSalary: "₹12 - 40 LPA"
+  }
 ];
