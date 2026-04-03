@@ -12,7 +12,8 @@ import {
   Video, 
   ExternalLink,
   Award,
-  BookOpen
+  BookOpen,
+  TrendingUp
 } from 'lucide-react';
 import { EXPERTS, Expert } from '../data/expertsData';
 
@@ -120,10 +121,14 @@ export function Experts() {
                 </div>
 
                 <div className="space-y-3">
-                   <div className="flex items-center gap-2 text-gray-500">
+                   <div className="flex items-center justify-between gap-2">
                       <Badge variant="secondary" className="bg-gray-100 text-gray-600 font-bold border-0 text-[10px] uppercase px-2 py-0.5 rounded-md">
                         {expert.department}
                       </Badge>
+                      <div className="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-lg border border-green-100">
+                        <TrendingUp className="w-3 h-3" />
+                        <span className="text-[10px] font-black">{expert.avgSalary}</span>
+                      </div>
                    </div>
 
                    <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
@@ -139,15 +144,27 @@ export function Experts() {
                    </div>
                 </div>
 
-                <Button 
-                  asChild
-                  className="w-full h-12 rounded-2xl bg-gray-900 hover:bg-black text-white font-bold transition-all shadow-lg hover:shadow-2xl active:scale-95 text-sm gap-2"
-                >
-                  <a href={expert.videoUrl} target="_blank" rel="noopener noreferrer">
-                    Watch Professional Podcast
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </Button>
+                <div className="grid grid-cols-2 gap-2 mt-auto">
+                  <Button 
+                    asChild
+                    variant="outline"
+                    className="h-11 rounded-2xl border-indigo-100 text-indigo-600 hover:bg-indigo-50 font-bold transition-all text-[11px] gap-1.5"
+                  >
+                    <a href={expert.salaryVideoUrl || expert.videoUrl} target="_blank" rel="noopener noreferrer">
+                      Salary Guide
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </Button>
+                  <Button 
+                    asChild
+                    className="h-11 rounded-2xl bg-gray-900 hover:bg-black text-white font-bold transition-all shadow-lg text-[11px] gap-1.5"
+                  >
+                    <a href={expert.videoUrl} target="_blank" rel="noopener noreferrer">
+                      Watch Podcast
+                      <Play className="w-3 h-3 fill-current" />
+                    </a>
+                  </Button>
+                </div>
               </div>
 
             </Card>
