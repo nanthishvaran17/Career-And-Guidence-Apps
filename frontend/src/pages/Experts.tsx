@@ -146,24 +146,14 @@ export function Experts() {
                    </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 mt-4">
+                <div className="mt-4">
                   <Button 
                     asChild
-                    variant="outline"
-                    className="h-12 rounded-2xl border-indigo-100 text-indigo-600 hover:bg-indigo-50 font-bold transition-all text-[11px] gap-1.5"
-                  >
-                    <a href={expert.salaryVideoUrl || expert.videoUrl} target="_blank" rel="noopener noreferrer">
-                      Salary Guide
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </Button>
-                  <Button 
-                    asChild
-                    className="h-12 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black transition-all shadow-lg hover:shadow-red-200 text-[11px] gap-1.5 border-b-4 border-red-800"
+                    className="w-full h-14 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black transition-all shadow-xl hover:shadow-red-200 text-sm gap-2 border-b-4 border-red-800 active:border-b-0 active:translate-y-1"
                   >
                     <a href={expert.videoUrl} target="_blank" rel="noopener noreferrer">
-                      Watch Video
-                      <Play className="w-3.5 h-3.5 fill-current" />
+                      Watch Career Podcast
+                      <Play className="w-5 h-5 fill-current" />
                     </a>
                   </Button>
                 </div>

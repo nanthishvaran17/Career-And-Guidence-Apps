@@ -19,7 +19,6 @@ export const EXPERTS: Expert[] = [
     department: "Computer Science (AI/ML)",
     bestFor: "Mastering Machine Learning & Neural Networks",
     videoUrl: "https://www.youtube.com/watch?v=xvFZjo5PgG0",
-    salaryVideoUrl: "https://www.youtube.com/watch?v=3S0mPdM_p_Y",
     thumbnail: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
     rating: 4.9,
     avgSalary: "₹18 - 45 LPA"
@@ -30,8 +29,7 @@ export const EXPERTS: Expert[] = [
     role: "HR Lead @ TCS",
     department: "Human Resources",
     bestFor: "Cracking MNC Interviews & Resume Building",
-    videoUrl: "https://www.youtube.com/watch?v=xvFZjo5PgG0",
-    salaryVideoUrl: "https://www.youtube.com/watch?v=3S0mPdM_p_Y",
+    videoUrl: "https://www.youtube.com/watch?v=nu_pCVPKzTk",
     thumbnail: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
     rating: 4.8,
     avgSalary: "₹8 - 22 LPA"
@@ -66,9 +64,8 @@ export const EXPERTS: Expert[] = [
     role: "Product Manager @ Google",
     department: "Management (MBA)",
     bestFor: "Product Management Strategy and Tech Career",
-    videoUrl: "https://www.youtube.com/watch?v=Y8TKOsk6vYw",
-    salaryVideoUrl: "https://www.youtube.com/watch?v=9_Cgnd1PAs8",
-    thumbnail: "https://img.youtube.com/vi/Y8TKOsk6vYw/maxresdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=R9OHn5ZF4Uo",
+    thumbnail: "https://img.youtube.com/vi/R9OHn5ZF4Uo/maxresdefault.jpg",
     rating: 4.9,
     avgSalary: "₹25 - 60 LPA"
   },
@@ -102,9 +99,8 @@ export const EXPERTS: Expert[] = [
     role: "Data Scientist @ Meta",
     department: "Data Engineering",
     bestFor: "Advanced Python for Data Science and Big Data",
-    videoUrl: "https://www.youtube.com/watch?v=7Eh8A1X6VzI",
-    salaryVideoUrl: "https://www.youtube.com/watch?v=9Y_uWJbX6rM",
-    thumbnail: "https://img.youtube.com/vi/7Eh8A1X6VzI/maxresdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=y3_jCst-u7Q",
+    thumbnail: "https://img.youtube.com/vi/y3_jCst-u7Q/maxresdefault.jpg",
     rating: 4.9,
     avgSalary: "₹15 - 40 LPA"
   },
