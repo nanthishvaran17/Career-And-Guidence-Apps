@@ -23,9 +23,11 @@ export function Header({ onMenuClick }: HeaderProps) {
             <span className="text-lg font-black bg-gradient-to-r from-blue-700 to-indigo-700 text-transparent bg-clip-text tracking-tight">CareerHub</span>
           </Link>
 
-          {/* Desktop search */}
-          <div className="hidden sm:flex flex-1 max-w-md">
-            <GlobalSearch />
+          {/* Desktop search - Centered & Expanded */}
+          <div className="hidden lg:flex flex-1 justify-center px-4">
+            <div className="w-full max-w-2xl">
+              <GlobalSearch />
+            </div>
           </div>
         </div>
 
@@ -41,9 +43,11 @@ export function Header({ onMenuClick }: HeaderProps) {
         </div>
       </div>
 
-      {/* Mobile search */}
-      <div className="sm:hidden px-4 pb-4">
-        <GlobalSearch />
+      {/* Mobile search - High Visibility */}
+      <div className="lg:hidden px-4 pb-4">
+        <div className="max-w-md mx-auto">
+          <GlobalSearch />
+        </div>
       </div>
     </header>
   );

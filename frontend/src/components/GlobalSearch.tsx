@@ -159,9 +159,9 @@ export function GlobalSearch() {
       <form onSubmit={handleSubmit} className="relative group">
         <button 
           type="submit"
-          className="absolute left-1.5 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors z-10"
+          className="absolute left-1.5 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors z-20"
         >
-          <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-600 transition-colors" />
+          <Search className="w-5 h-5 text-gray-600 group-focus-within:text-blue-600 transition-colors" />
         </button>
         <input
           type="text"
