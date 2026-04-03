@@ -207,6 +207,18 @@ const createTables = () => {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
+    // Govt Jobs Table (MISSING PREVIOUSLY)
+    db.run(`CREATE TABLE IF NOT EXISTS govt_jobs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      category TEXT,
+      exam_name TEXT,
+      eligibility_criteria TEXT,
+      description TEXT,
+      website TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+
 
     // --- NEW MASTER DATA TABLES ---
 

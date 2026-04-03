@@ -63,25 +63,22 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Serve static files from the React app
-const frontendBuildPath = path.resolve(__dirname, '../frontend/build');
-const frontendDistPath = path.resolve(__dirname, '../frontend/dist');
-const finalStaticPath = fs.existsSync(frontendBuildPath) ? frontendBuildPath : frontendDistPath;
+// Serve static files from the React app (Unified Build)
+const publicPath = path.resolve(__dirname, 'public');
 
-console.log(`[Static] Checking for frontend at: ${frontendBuildPath} or ${frontendDistPath}`);
-console.log(`[Static] Selected Path: ${finalStaticPath} (Exists: ${fs.existsSync(finalStaticPath)})`);
+console.log(`[Static] Serving frontend from: ${publicPath} (Exists: ${fs.existsSync(publicPath)})`);
 
-app.use(express.static(finalStaticPath));
+app.use(express.static(publicPath));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-  const indexPath = path.join(finalStaticPath, 'index.html');
+  const indexPath = path.join(publicPath, 'index.html');
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
-    console.error(`[Static] FATAL: index.html not found at ${indexPath}`);
-    res.status(404).send("Frontend build not found. Please run 'npm run build' in the frontend folder.");
+    console.error(`[Static] FATAL: index.html not found in ${publicPath}`);
+    res.status(404).send("Frontend build not found. System initializing...");
   }
 });
 

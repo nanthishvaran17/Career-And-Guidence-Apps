@@ -1,11 +1,11 @@
 services:
   - type: web
-    name: career-advisor-backend
+    name: career-advisor-app
     env: node
     plan: free
-    rootDir: node-backend
-    buildCommand: npm install
-    startCommand: npm start
+    rootDir: .
+    buildCommand: "npm install && cd frontend && npm install && npm run build && cd .. && mkdir -p node-backend/public && cp -r frontend/build/* node-backend/public/ && cd node-backend && npm install"
+    startCommand: "cd node-backend && npm start"
     envVars:
       - key: NODE_ENV
         value: production
