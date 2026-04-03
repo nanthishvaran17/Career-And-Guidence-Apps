@@ -28,8 +28,12 @@ import {
   Zap,
   ChevronRight,
   Sparkles,
+  Info,
+  Check,
+  AlertCircle
 } from 'lucide-react';
 import { careers } from '../data/mockData';
+import { verifyCertificateLink, VerificationStatus } from '../utils/certificateVerifier';
 
 interface TrustData {
   trustScore: number;
@@ -318,27 +322,54 @@ export function Dashboard() {
               <Card className="bg-white border border-gray-100 overflow-hidden p-2">
                 {profileData?.certificates && profileData.certificates.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2">
-                    {profileData.certificates.filter((c: any) => c.name).map((cert: any, index: number) => (
-                      <div key={index} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100 group hover:border-blue-200 transition-all">
-                        <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm text-blue-600 group-hover:scale-110 transition-transform">
-                          <Award className="w-6 h-6" />
+                    {profileData.certificates.filter((c: any) => c.name).map((cert: any, index: number) => {
+                      const verification = verifyCertificateLink(cert.link);
+                      const isGenuine = verification.status === 'GENUINE';
+                      const isSuspicious = verification.status === 'SUSPICIOUS';
+                      
+                      return (
+                        <div key={index} className={`flex items-center gap-3 p-3 rounded-xl border group transition-all ${
+                          isGenuine ? 'bg-emerald-50/30 border-emerald-100' : 
+                          isSuspicious ? 'bg-red-50/30 border-red-100' : 'bg-gray-50 border-gray-100'
+                        }`}>
+                          <div className={`w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm ${
+                            isGenuine ? 'text-emerald-600' : isSuspicious ? 'text-red-500' : 'text-blue-600'
+                          } group-hover:scale-110 transition-transform`}>
+                            {isGenuine ? <ShieldCheck className="w-6 h-6" /> : isSuspicious ? <AlertCircle className="w-6 h-6" /> : <Award className="w-6 h-6" />}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-bold text-gray-900 truncate flex items-center gap-1">
+                              {cert.name}
+                              {isGenuine && <Check className="w-3 h-3 text-emerald-500 stroke-[4]" />}
+                            </p>
+                            <div className="flex items-center gap-2">
+                              {isGenuine ? (
+                                <span className="text-[9px] font-black uppercase text-emerald-600 tracking-tighter">Verified Genuine</span>
+                              ) : isSuspicious ? (
+                                <span className="text-[9px] font-black uppercase text-red-500 tracking-tighter flex items-center gap-1">
+                                  <AlertCircle className="w-3 h-3" /> Suspicious Source
+                                </span>
+                              ) : (
+                                <span className="text-[9px] font-black uppercase text-gray-400 tracking-tighter">Needs Official Review</span>
+                              )}
+                            </div>
+                            <a 
+                              href={cert.link} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="text-[9px] text-blue-600 font-bold hover:underline flex items-center gap-1 mt-0.5"
+                            >
+                              Explore Proof <ArrowRight className="w-2.5 h-2.5" />
+                            </a>
+                          </div>
+                          
+                          {/* TOOLTIP / INFO */}
+                          <div className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" title={verification.reason} />
+                          </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-gray-900 truncate">{cert.name}</p>
-                          <a 
-                            href={cert.link} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="text-[10px] text-blue-600 font-bold hover:underline flex items-center gap-1"
-                          >
-                            View Certificate <ArrowRight className="w-2.5 h-2.5" />
-                          </a>
-                        </div>
-                        <div className="shrink-0">
-                          <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="text-center py-8">
