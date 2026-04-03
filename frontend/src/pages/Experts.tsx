@@ -86,13 +86,13 @@ export function Experts() {
         {/* EXPERTS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredExperts.map((expert: Expert) => (
-            <Card key={expert.id} className="group flex flex-col border border-gray-100 shadow-xl rounded-[32px] bg-white hover:-translate-y-2 transition-all duration-500 relative min-h-[480px]">
+            <Card key={expert.id} className="group flex flex-col border border-gray-100 shadow-xl rounded-[32px] bg-white hover:-translate-y-2 transition-all duration-500 relative min-h-[560px] overflow-visible">
               
               {/* TOP ACCENT BAR */}
-              <div className="h-2 bg-gradient-to-r from-blue-600 to-indigo-600" />
+              <div className="h-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-t-[32px]" />
 
               {/* EXPERT DETAILS */}
-              <div className="p-8 flex-1 flex flex-col justify-between space-y-6">
+              <div className="p-8 pb-10 flex-1 flex flex-col justify-between">
                 <div className="space-y-6">
                   <div className="flex justify-between items-start">
                     <div className="space-y-2 text-left">
@@ -137,12 +137,12 @@ export function Experts() {
                   </div>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-8">
                   <Button 
                     asChild
                     className="w-full h-14 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black transition-all shadow-xl hover:shadow-red-500/20 text-base gap-3 border-b-4 border-red-800 active:border-b-0 active:translate-y-1"
                   >
-                    <a href={expert.videoUrl} target="_blank" rel="noopener noreferrer">
+                    <a href={expert.videoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                       Watch Career Podcast
                       <Play className="w-6 h-6 fill-current" />
                     </a>
