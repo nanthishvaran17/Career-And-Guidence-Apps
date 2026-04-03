@@ -36,14 +36,20 @@ export function Experts() {
     <Layout>
       <div className="max-w-7xl mx-auto space-y-8">
         
-        {/* HEADER SECTION */}
-        <div className="text-center space-y-3">
-          <h1 className="text-4xl font-black bg-gradient-to-r from-indigo-700 to-purple-700 bg-clip-text text-transparent tracking-tight">
-            Professional Experts & Podcasts
-          </h1>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto font-medium">
-            Learn from the top 1% of industry experts. Watch high-quality professional podcasts to accelerate your career journey.
-          </p>
+        {/* PREMIUM MINIMALIST HEADER */}
+        <div className="relative overflow-hidden rounded-[40px] bg-white/40 backdrop-blur-xl border border-white/60 p-12 text-center space-y-4 shadow-2xl shadow-indigo-100/50">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.08),transparent_50%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.08),transparent_50%)] pointer-events-none" />
+          <div className="relative z-10">
+            <Badge className="bg-indigo-50 text-indigo-600 border-indigo-100 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-4">
+              World Class Guidance
+            </Badge>
+            <h1 className="text-5xl font-black bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 bg-clip-text text-transparent tracking-tighter sm:text-6xl">
+              Professional Experts <span className="text-indigo-600">&</span> Podcasts
+            </h1>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+              Learn from the top 1% of industry leaders through curated professional podcasts and deep-dive roadmaps.
+            </p>
+          </div>
         </div>
 
         {/* CONTROLS: SEARCH & FILTERS */}

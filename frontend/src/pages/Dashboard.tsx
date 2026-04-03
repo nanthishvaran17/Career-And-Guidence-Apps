@@ -365,7 +365,7 @@ export function Dashboard() {
                           
                           {/* TOOLTIP / INFO */}
                           <div className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" title={verification.reason} />
+                            <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
                           </div>
                         </div>
                       );
