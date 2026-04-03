@@ -35,8 +35,8 @@ export function ProfileSetup() {
     shortTermGoal: string; longTermGoal: string; dreamJob: string; workEnvironment: string;
     studyLocation: string; studyCity: string; courseMode: string;
     familyIncome: string; educationBudget: string; scholarshipRequired: boolean;
-    internships: string; jobExperience: string; projects: string;
-    resumeLink: string; certificateLink: string; portfolioLink: string;
+    resumeLink: string; portfolioLink: string;
+    certificates: Array<{name: string, link: string}>;
   }>({
     name: '', age: '', gender: '', email: '', phone: '', location: '', preferredLanguage: '',
 
@@ -53,7 +53,8 @@ export function ProfileSetup() {
     familyIncome: '', educationBudget: '', scholarshipRequired: false,
 
     internships: '', jobExperience: '', projects: '',
-    resumeLink: '', certificateLink: '', portfolioLink: ''
+    resumeLink: '', portfolioLink: '',
+    certificates: [{ name: '', link: '' }]
   });
 
   useEffect(() => {
@@ -175,6 +176,7 @@ export function ProfileSetup() {
         specialization: profile.stream || 'General',
         skills: [profile.techSkills, profile.softSkills].filter(Boolean),
         interests: profile.interestedFields.length ? profile.interestedFields : ['General'],
+        certificates: profile.certificates,
         challenge: profile.weakSubjects || 'None',
         dream: profile.dreamJob || 'Successful Career'
       };
@@ -430,11 +432,76 @@ export function ProfileSetup() {
                 </div>
 
                 <div className="border-t dark:border-gray-700 pt-6">
-                  <h4 className="text-lg font-bold flex items-center gap-2 text-gray-800 dark:text-white mb-4"><FileText className="w-5 h-5" /> Document Uploads (URLs)</h4>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div><Label className="dark:text-gray-300">Resume Link (Google Drive / PDF)</Label><Input className="dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="https://" value={profile.resumeLink} onChange={e => setProfile({...profile, resumeLink: e.target.value})}/></div>
-                    <div><Label className="dark:text-gray-300">Certificates Folder Link</Label><Input className="dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="https://" value={profile.certificateLink} onChange={e => setProfile({...profile, certificateLink: e.target.value})}/></div>
-                    <div className="md:col-span-2"><Label className="dark:text-gray-300">Personal Portfolio Link</Label><Input className="dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="https://yourwebsite.com" value={profile.portfolioLink} onChange={e => setProfile({...profile, portfolioLink: e.target.value})}/></div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-lg font-bold flex items-center gap-2 text-gray-800 dark:text-white"><FileText className="w-5 h-5 text-indigo-500" /> My Certifications</h4>
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setProfile(prev => ({ ...prev, certificates: [...prev.certificates, { name: '', link: '' }] }))}
+                      className="text-xs font-bold gap-1 rounded-full border-blue-100 text-blue-600 hover:bg-blue-50"
+                    >
+                      + Add Certificate
+                    </Button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {profile.certificates.map((cert, index) => (
+                      <div key={index} className="grid md:grid-cols-2 gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 relative group">
+                        <div>
+                          <Label className="text-[10px] uppercase font-black text-gray-400">Certificate Name</Label>
+                          <Input 
+                            className="h-10 mt-1 dark:bg-gray-700 dark:text-white dark:border-gray-600 rounded-xl" 
+                            placeholder="e.g. Google Data Analytics" 
+                            value={cert.name} 
+                            onChange={e => {
+                              const newCerts = [...profile.certificates];
+                              newCerts[index].name = e.target.value;
+                              setProfile({ ...profile, certificates: newCerts });
+                            }} 
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-[10px] uppercase font-black text-gray-400">Certificate / Drive Link</Label>
+                          <Input 
+                            className="h-10 mt-1 dark:bg-gray-700 dark:text-white dark:border-gray-600 rounded-xl" 
+                            placeholder="https://" 
+                            value={cert.link} 
+                            onChange={e => {
+                              const newCerts = [...profile.certificates];
+                              newCerts[index].link = e.target.value;
+                              setProfile({ ...profile, certificates: newCerts });
+                            }} 
+                          />
+                        </div>
+                        {profile.certificates.length > 1 && (
+                          <button 
+                            type="button"
+                            onClick={() => {
+                              const newCerts = profile.certificates.filter((_, i) => i !== index);
+                              setProfile({ ...profile, certificates: newCerts });
+                            }}
+                            className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-100 text-red-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:bg-red-500 hover:text-white"
+                          >
+                            ×
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                    {profile.certificates.length === 0 && (
+                      <p className="text-center py-4 text-xs text-gray-400 font-medium italic">No certificates added yet. Add them to get better recommendations!</p>
+                    )}
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4 mt-8 pt-6 border-t dark:border-gray-700">
+                    <div>
+                      <Label className="dark:text-gray-300">Resume Link (Google Drive / PDF)</Label>
+                      <Input className="dark:bg-gray-700 dark:text-white dark:border-gray-600 mt-1 rounded-xl" placeholder="https://" value={profile.resumeLink} onChange={e => setProfile({...profile, resumeLink: e.target.value})}/>
+                    </div>
+                    <div>
+                      <Label className="dark:text-gray-300">Personal Portfolio Link</Label>
+                      <Input className="dark:bg-gray-700 dark:text-white dark:border-gray-600 mt-1 rounded-xl" placeholder="https://yourwebsite.com" value={profile.portfolioLink} onChange={e => setProfile({...profile, portfolioLink: e.target.value})}/>
+                    </div>
                   </div>
                 </div>
               </div>

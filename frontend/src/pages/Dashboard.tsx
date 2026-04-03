@@ -50,32 +50,38 @@ export function Dashboard() {
   const [userName, setUserName] = useState('Student');
   const [trustData, setTrustData] = useState<TrustData | null>(null);
   const [trustLoading, setTrustLoading] = useState(true);
+  const [profileData, setProfileData] = useState<any>(null);
 
   useEffect(() => {
-    const fetchTrustScore = async () => {
+    const fetchDashboardData = async () => {
       try {
         const storedName = localStorage.getItem('userName');
         if (storedName) setUserName(storedName);
 
         const userId = localStorage.getItem('userId');
         if (userId) {
-          const response = await fetch(`${API_BASE_URL}/api/users/trust-score?id=${userId}`);
-          if (response.ok) {
-            const data = await response.json();
-            if (data.status === 'success') {
-              setTrustData(data);
-            }
+          const [trustRes, profileRes] = await Promise.all([
+            fetch(`${API_BASE_URL}/api/users/trust-score?id=${userId}`),
+            fetch(`${API_BASE_URL}/api/users/profile?id=${userId}`)
+          ]);
+
+          if (trustRes.ok) {
+            const data = await trustRes.json();
+            if (data.status === 'success') setTrustData(data);
           }
 
+          if (profileRes.ok) {
+            const data = await profileRes.json();
+            setProfileData(data.profile_data || data);
+          }
         }
       } catch (err) {
-        console.error('Failed to fetch trust score:', err);
-
+        console.error('Failed to fetch dashboard data:', err);
       } finally {
         setTrustLoading(false);
       }
     };
-    fetchTrustScore();
+    fetchDashboardData();
   }, []);
 
   const stats = [
@@ -303,24 +309,44 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* ── RECENT ACTIVITY ── */}
+            {/* ── MY ACHIEVEMENT LEDGER ── */}
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Recent Activity</h3>
-              <Card className="bg-white border border-gray-100 overflow-hidden">
-                {recentActivity.map((activity, index) => (
-                  <motion.div key={index} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1 }} className="flex items-start gap-4 p-4 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
-                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
-                      <activity.icon className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-900">
-                        <span className="text-gray-500">{activity.action}:</span>{' '}
-                        <span className="font-medium">{activity.item}</span>
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-gray-900">My Achievement Ledger</h3>
+                <Link to="/profile-setup" className="text-xs font-bold text-blue-600 hover:underline">+ Add More</Link>
+              </div>
+              <Card className="bg-white border border-gray-100 overflow-hidden p-2">
+                {profileData?.certificates && profileData.certificates.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2">
+                    {profileData.certificates.filter((c: any) => c.name).map((cert: any, index: number) => (
+                      <div key={index} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100 group hover:border-blue-200 transition-all">
+                        <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm text-blue-600 group-hover:scale-110 transition-transform">
+                          <Award className="w-6 h-6" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-gray-900 truncate">{cert.name}</p>
+                          <a 
+                            href={cert.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-[10px] text-blue-600 font-bold hover:underline flex items-center gap-1"
+                          >
+                            View Certificate <ArrowRight className="w-2.5 h-2.5" />
+                          </a>
+                        </div>
+                        <div className="shrink-0">
+                          <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <FileText className="w-10 h-10 text-gray-200 mx-auto mb-2" />
+                    <p className="text-sm text-gray-400 font-medium">No certificates uploaded yet.</p>
+                    <Link to="/profile-setup" className="text-xs text-blue-600 font-bold mt-1 block">Visit Profile to upload</Link>
+                  </div>
+                )}
               </Card>
             </div>
           </motion.div>

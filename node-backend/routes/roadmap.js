@@ -27,11 +27,12 @@ const validateGenerateInput = [
   body('specialization').notEmpty().trim().escape(),
   body('skills').isArray().withMessage('Skills must be an array'),
   body('interests').isArray().withMessage('Interests must be an array'),
+  body('certificates').optional().isArray().withMessage('Certificates must be an array'),
   body('challenge').notEmpty().trim().escape(),
   body('dream').notEmpty().trim().escape(),
 ];
 
-const systemPrompt = "You are TrustPath AI, India's most trusted career counselor with 20+ years experience. Analyze the user profile and generate a structured JSON career roadmap. Always be India-specific (INR salaries, Indian exams, Indian platforms). Be warm, honest, and actionable. Never give generic advice.";
+const systemPrompt = "You are TrustPath AI, India's most trusted career counselor with 20+ years experience. Analyze the user profile, including their existing certificates, and generate a structured JSON career roadmap. If the user already has a certificate in a skill, recommend 'Next Level' advanced practices and certifications. Always be India-specific (INR salaries, Indian exams, Indian platforms). Be warm, honest, and actionable. Never give generic advice.";
 
 router.post('/generate', roadmapLimiter, validateGenerateInput, async (req, res) => {
   const errors = validationResult(req);
@@ -39,12 +40,15 @@ router.post('/generate', roadmapLimiter, validateGenerateInput, async (req, res)
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, age, status, city, degree, specialization, skills, interests, challenge, dream } = req.body;
+  const { name, age, status, city, degree, specialization, skills, interests, challenge, dream, certificates = [] } = req.body;
+
+  const certLabels = certificates.map((c) => c.name).filter(Boolean).join(', ');
 
   const userPrompt = `Generate a career roadmap for:
 Name: ${name}, Age: ${age}, Status: ${status}
 City: ${city}, Degree: ${degree} in ${specialization}
 Skills: ${skills.join(', ')}, Interests: ${interests.join(', ')}
+Existing Certificates: ${certLabels || 'None yet'}
 Challenge: ${challenge}, Dream: ${dream}
 
 Return ONLY valid JSON in this exact structure:
