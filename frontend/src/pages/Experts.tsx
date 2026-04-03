@@ -84,42 +84,48 @@ export function Experts() {
         {/* EXPERTS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredExperts.map((expert: Expert) => (
-            <Card key={expert.id} className="group overflow-hidden border-0 shadow-xl rounded-[32px] bg-white hover:-translate-y-2 transition-all duration-500 relative">
+            <Card key={expert.id} className="group overflow-hidden border-0 shadow-xl rounded-[32px] bg-white hover:-translate-y-2 transition-all duration-500">
               
-              {/* TOP HEADER ACCENT */}
-              <div className="h-24 bg-gradient-to-r from-indigo-500/10 to-purple-500/10" />
+              {/* VIDEO THUMBNAIL OVERLAY - REVERTED TO ORIGINAL */}
+              <div className="relative aspect-video overflow-hidden">
+                <img 
+                  src={expert.thumbnail} 
+                  alt={expert.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                  <a 
+                    href={expert.videoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:scale-125 transition-transform group/btn shadow-2xl"
+                  >
+                    <Play className="w-8 h-8 text-white fill-white ml-1" />
+                  </a>
+                </div>
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-indigo-600/90 backdrop-blur-md text-white border-0 px-3 py-1 text-xs font-bold gap-1.5 rounded-full">
+                    <Video className="w-3.5 h-3.5" /> Podcast
+                  </Badge>
+                </div>
+              </div>
 
-              <div className="px-6 pb-6 -mt-12 space-y-4">
-                {/* PORTRAIT OVERLAY */}
-                <div className="flex justify-between items-end">
-                   <div className="relative">
-                      <div className="w-24 h-24 rounded-3xl border-4 border-white shadow-xl overflow-hidden bg-gray-100">
-                        <img 
-                          src={expert.thumbnail} 
-                          alt={expert.name}
-                          className="w-full h-full object-cover transition-transform group-hover:scale-110"
-                        />
-                      </div>
-                      <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-lg">
-                         <div className="bg-emerald-500 rounded-full p-1 text-white">
-                           <ShieldCheck className="w-3.5 h-3.5" />
-                         </div>
-                      </div>
-                   </div>
-                   <div className="bg-amber-50 rounded-full px-3 py-1 flex items-center gap-1 shadow-sm border border-amber-100 mb-2">
+              {/* EXPERT DETAILS */}
+              <div className="p-6 space-y-4">
+                <div className="flex justify-between items-start gap-4">
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-black text-gray-900 tracking-tight group-hover:text-indigo-600 transition-colors flex items-center gap-2">
+                      {expert.name}
+                      <ShieldCheck className="w-4 h-4 text-blue-500 fill-blue-50" />
+                    </h3>
+                    <p className="text-indigo-600 text-xs font-black uppercase tracking-widest flex items-center gap-1.5">
+                      <Award className="w-3.5 h-3.5" /> {expert.role}
+                    </p>
+                  </div>
+                   <div className="bg-amber-50 rounded-full px-2 py-1 flex items-center gap-1 shadow-sm border border-amber-100">
                       <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                       <span className="text-xs font-bold text-amber-700">{expert.rating}</span>
                    </div>
-                </div>
-
-                {/* EXPERT DETAILS */}
-                <div className="space-y-1">
-                  <h3 className="text-2xl font-black text-gray-900 tracking-tight group-hover:text-indigo-600 transition-colors">
-                    {expert.name}
-                  </h3>
-                  <p className="text-indigo-600 text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 bg-indigo-50/50 w-fit px-2 py-0.5 rounded-md">
-                    <Award className="w-3.5 h-3.5" /> {expert.role}
-                  </p>
                 </div>
 
                 <div className="space-y-3">
@@ -133,7 +139,7 @@ export function Experts() {
                       </div>
                    </div>
 
-                   <div className="bg-gray-50/80 rounded-2xl p-4 border border-gray-100/50">
+                   <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
                       <div className="flex items-start gap-2">
                         <BookOpen className="w-4 h-4 text-indigo-500 mt-0.5" />
                         <div className="space-y-1">
